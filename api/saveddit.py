@@ -16,7 +16,7 @@ APP_CLIENT_ID = os.environ['SAVEDDIT_CLIENT_ID']
 APP_CLIENT_SECRET = os.environ['SAVEDDIT_CLIENT_SECRET']
 APP_REDIRECT_URL = ('http://localhost:5000/oauth-redirect'
                     if os.environ.get('FLASK_ENV') == 'development' else
-                    'https://xyz.com/oauth-redirect')
+                    'https://saveddit4reddit.herokuapp.com/oauth-redirect')
 APP_HTTP_REQUEST_HEADER = {'User-Agent': 'Saveddit - by Ahmed Zubair'}
 
 
