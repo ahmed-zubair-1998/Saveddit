@@ -4,6 +4,7 @@ import { setUsername } from './reducers/usernameReducer'
 
 import Login from './components/Login'
 import Main from './components/Main'
+import LoadingScreen from './components/LoadingScreen'
 
 
 const App = () => {
@@ -15,7 +16,7 @@ const App = () => {
         <div>
             {
                 username === null
-                    ? <p>Saveddit.....</p>
+                    ? <LoadingScreen />
                     : (
                         username === '' 
                             ? <Login />
