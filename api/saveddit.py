@@ -5,7 +5,7 @@ import requests
 from flask import Flask, redirect, request, make_response, jsonify
 
 
-app = Flask(__name__, static_url_path='', static_folder='../saveddit/build')
+app = Flask(__name__)
 
 
 REDDIT_ROOT_URL = 'https://www.reddit.com'
@@ -17,6 +17,9 @@ APP_CLIENT_SECRET = os.environ['SAVEDDIT_CLIENT_SECRET']
 APP_REDIRECT_URL = ('http://localhost:5000/oauth-redirect'
                     if os.environ.get('FLASK_ENV') == 'development' else
                     'https://saveddit4reddit.herokuapp.com/oauth-redirect')
+APP_FRONTEND_URL = ('http://localhost:3000/'
+                    if os.environ.get('FLASK_ENV') == 'development' else
+                    'https://saveddit4reddit.herokuapp.com/')
 APP_HTTP_REQUEST_HEADER = {'User-Agent': 'Saveddit - by Ahmed Zubair'}
 
 
@@ -31,7 +34,7 @@ def generate_reddit_auth_code_payload(code):
 
 @app.route('/')
 def root():
-    return app.send_static_file('index.html')
+    return redirect(APP_FRONTEND_URL)
 
 
 @app.route('/oauth-redirect', methods=['GET'])
