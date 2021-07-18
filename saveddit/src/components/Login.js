@@ -16,12 +16,12 @@ const Login = () => {
     }, [])
 
     return (
-        <div className="bg-gray-700 min-h-screen h-full text-gray-50">
+        <div className="bg-gray-700 flex-1 text-gray-50">
             <div className="bg-gray-800 h-16">
                 <img className="h-12 w-auto pt-3 pl-3" src={ Logo } alt="Saveddit" />
             </div>
             <div className="container mx-auto mt-20 flex flex-col justify-center py-4 px-8 rounded-sm shadow-2xl h-96">
-                <ul className="list-disc list-outside bg-gray-600 pl-4 py-16 text-lg font-semibold tracking-wider leading-loose">
+                <ul className="list-none list-outside bg-gray-600 pl-8 py-16 text-lg font-semibold tracking-wider leading-loose">
                     <li>View all the posts you have saved on Reddit</li>
                     <li>Search for keywords to filter your saved posts</li>
                     <li>View the count of posts saved per subreddit</li>

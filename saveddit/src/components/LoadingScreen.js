@@ -5,13 +5,13 @@ import Logo from '../public/logo.png'
 
 const LoadingScreen = () => {
     return (
-        <div className="bg-gray-800 text-white h-screen flex flex-col justify-center items-center">
+        <div className="bg-gray-800 text-white flex-1 flex flex-col justify-center items-center">
             <img className="lg:h-1/2 h-1/4 w-1/2" src={Logo}/>
             <span className="text-center">
                 Search and Filter through your <span className="text-red-400">Saved Reddit</span> Posts
             </span>
             <span className="py-4 text-2xl font-bold tracking-widest flex items-center">
-                <span className="text-gray-400">Loading</span>
+                <span className="text-gray-400 animate-bounce">Loading</span>
                 <div className="py-1 flex">
                     <svg className="animate-bounce pl-3 h-8 w-8 fill-current text-red-600" viewBox="0 0 20 20">
                         <path d="M10,0.562c-5.195,0-9.406,4.211-9.406,9.406c0,5.195,4.211,9.406,9.406,9.406c5.195,0,9.406-4.211,9.406-9.406C19.406,4.774,15.195,0.562,10,0.562 M10,18.521c-4.723,0-8.551-3.829-8.551-8.552S5.277,1.418,10,1.418s8.552,3.828,8.552,8.551S14.723,18.521,10,18.521"></path>

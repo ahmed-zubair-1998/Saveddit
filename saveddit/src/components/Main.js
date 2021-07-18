@@ -29,21 +29,23 @@ const Main = () => {
     }
 
     return (
-        <div className="bg-gray-700 min-h-screen h-full text-gray-50 static">
+        <div className="bg-gray-900 flex-1 flex flex-col text-gray-50 static lg:overflow-y-hidden">
             <div className="bg-gray-800 h-16 py-3 px-6 flex justify-between items-center">
                 <img className="h-12 w-auto" src={ Logo } alt="Saveddit" />
-                <button onClick={toggleSignOutButton} className="hover:bg-gray-600 px-4 py-2 rounded-md">
+                <button onClick={toggleSignOutButton} className={`${signOutButton ? '' : 'bg-gray-600'} hover:bg-gray-600 px-4 py-2 rounded-md`}>
                     u/{username}
                 </button>
             </div>
-            <button className={`${signOutButton} py-3 px-6 rounded-md bg-red-300 text-gray-800 hover:text-gray-50 hover:bg-red-600 absolute right-6`} onClick={handleLogout}>
+            <button className={`${signOutButton} mt-16 py-3 px-6 rounded-md bg-red-300 text-gray-800 hover:text-gray-50 hover:bg-red-600 absolute right-6`} onClick={handleLogout}>
                 Sign Out
             </button>
-            {
-                loaded
-                ? <Window />
-                : <LoadingScreen />
-            }
+            <div className="flex-1 flex flex-col overflow-y-hidden">
+                {
+                    loaded
+                    ? <Window />
+                    : <LoadingScreen />
+                }
+            </div>
         </div>
     )
 }

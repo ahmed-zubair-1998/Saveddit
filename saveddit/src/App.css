@@ -1,3 +1,12 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import 'tailwindcss/utilities';
+
+@layer components {
+    .selected-subreddit {
+        @apply bg-green-200 border-green-500 border-4 text-gray-800 p-4 rounded-full flex justify-between
+    }
+    .unselected-subreddit {
+        @apply bg-red-300 border-red-700
+    }
+}

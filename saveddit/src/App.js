@@ -13,7 +13,7 @@ const App = () => {
     const username = useSelector(state => state.username)
 
     return (
-        <div>
+        <div className="h-screen flex flex-col">
             {
                 username === null
                     ? <LoadingScreen />

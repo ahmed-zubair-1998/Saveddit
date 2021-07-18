@@ -4,6 +4,8 @@ import Fuse from 'fuse.js'
 
 import useField from '../hooks/useField'
 import Pagination from './Pagination'
+import SearchPanel from './SearchPanel'
+import Subreddits from './Subreddits'
 
 
 const Window = () => {
@@ -43,7 +45,7 @@ const Window = () => {
             console.log('You have no existing saved post. Nothing to search...')
             return
         }
-        if(searchField.value === ''){
+        if (searchField.value === '') {
             setFilteredPosts(posts.filter(post => post))
             return
         }
@@ -56,30 +58,162 @@ const Window = () => {
 
 
     return (
-        <div>
-            <h1>Search your feelings...</h1>
-            <form onSubmit={handleSearch}>
-                <input {...searchField} />
-                <button type='submit'>Search</button>
-            </form>
+        <div className="lg:flex lg:flex-1 lg:overflow-y-hidden">
+
+            <div className="lg:w-1/3 bg-green-300 flex flex-col overflow-y-hidden">
+                <SearchPanel />
+
+                <Subreddits subreddits={subreddits}/>
+            </div>
+
+            <div className="main lg:w-2/3 text-gray-50 overflow-y-auto">
+                <div className="info flex flex-col space-y-1">
+                    <div className="text-center p-3">
+                        <div className="font-semibold text-lg">
+                            <div className="bg-gray-700 rounded-md py-2">
+                                Filters
+                            </div>
+                        </div>
+                        <p className="pt-3">No search query</p>
+                        <p>Number of subreddits selected : 4</p>
+                        <p>Number of total posts : 73</p>
+                    </div>
+                </div>
+
+                <div className="text-center font-semibold text-lg p-3">
+                    <div className="bg-gray-700 rounded-md py-2">
+                        Posts
+                    </div>
+                </div>
+
+                <div className="posts text-center px-4 py-5">
+                    <div className="post bg-gray-100 text-gray-800 rounded-lg w-4/5 mx-auto px-1 py-3 my-5">
+                        <div className="text-left flex">
+                            <div className="bg-gray-400 h-14 w-14 float-left">Image</div>
+                            <p className="px-2">Title Long ass title fjnenjfejfenfeej fejfjefnefjefejfefjefnejne fjnejnejfnef jfnjefje eff</p>
+                        </div>
+
+                        <div className="py-3">
+                            <div className="flex justify-between px-3 border-2 border-gray-300">
+                                <div>u/chungi</div>
+                                <div>karma: 33</div>
+                                <div>Comments: 56</div>
+                            </div>
+                        </div>
+
+                        <div className="text-left px-3 pb-2">
+                            <p>hbfhbf fjenjfnejf jnfjenfjen jnfjenjf jfjnejfn is a bas nejfnjfne nejnejnf njfnjfn jnejefne jnfjejjfnje jbfbjfb</p>
+                        </div>
+                    </div>
+
+                    <div className="post bg-gray-100 text-gray-800 rounded-lg w-4/5 mx-auto px-1 py-3 my-5">
+                        <div className="text-left flex">
+                            <div className="bg-gray-400 h-14 w-14 float-left">Image</div>
+                            <p className="px-2">Title Long ass title fjnenjfejfenfeej fejfjefnefjefejfefjefnejne fjnejnejfnef jfnjefje eff</p>
+                        </div>
+
+                        <div className="py-3">
+                            <div className="flex justify-between px-3 border-2 border-gray-300">
+                                <div>u/chungi</div>
+                                <div>karma: 33</div>
+                                <div>Comments: 56</div>
+                            </div>
+                        </div>
+
+                        <div className="text-left px-3 pb-2">
+                            <p>hbfhbf fjenjfnejf jnfjenfjen jnfjenjf jfjnejfn is a bas nejfnjfne nejnejnf njfnjfn jnejefne jnfjejjfnje jbfbjfb</p>
+                        </div>
+                    </div>
+
+                    <div className="post bg-gray-100 text-gray-800 rounded-lg w-4/5 mx-auto px-1 py-3 my-5">
+                        <div className="text-left flex">
+                            <div className="bg-gray-400 h-14 w-14 float-left">Image</div>
+                            <p className="px-2">Title Long ass title fjnenjfejfenfeej fejfjefnefjefejfefjefnejne fjnejnejfnef jfnjefje eff</p>
+                        </div>
+
+                        <div className="py-3">
+                            <div className="flex justify-between px-3 border-2 border-gray-300">
+                                <div>u/chungi</div>
+                                <div>karma: 33</div>
+                                <div>Comments: 56</div>
+                            </div>
+                        </div>
+
+                        <div className="text-left px-3 pb-2">
+                            <p>hbfhbf fjenjfnejf jnfjenfjen jnfjenjf jfjnejfn is a bas nejfnjfne nejnejnf njfnjfn jnejefne jnfjejjfnje jbfbjfb</p>
+                        </div>
+                    </div>
+
+                    <div className="post bg-gray-100 text-gray-800 rounded-lg w-4/5 mx-auto px-1 py-3 my-5">
+                        <div className="text-left flex">
+                            <div className="bg-gray-400 h-14 w-14 float-left">Image</div>
+                            <p className="px-2">Title Long ass title fjnenjfejfenfeej fejfjefnefjefejfefjefnejne fjnejnejfnef jfnjefje eff</p>
+                        </div>
+
+                        <div className="py-3">
+                            <div className="flex justify-between px-3 border-2 border-gray-300">
+                                <div>u/chungi</div>
+                                <div>karma: 33</div>
+                                <div>Comments: 56</div>
+                            </div>
+                        </div>
+
+                        <div className="text-left px-3 pb-2">
+                            <p>hbfhbf fjenjfnejf jnfjenfjen jnfjenjf jfjnejfn is a bas nejfnjfne nejnejnf njfnjfn jnejefne jnfjejjfnje jbfbjfb</p>
+                        </div>
+                    </div>
+
+                    <div className="post bg-gray-100 text-gray-800 rounded-lg w-4/5 mx-auto px-1 py-3 my-5">
+                        <div className="text-left flex">
+                            <div className="bg-gray-400 h-14 w-14 float-left">Image</div>
+                            <p className="px-2">Title Long ass title fjnenjfejfenfeej fejfjefnefjefejfefjefnejne fjnejnejfnef jfnjefje eff</p>
+                        </div>
+
+                        <div className="py-3">
+                            <div className="flex justify-between px-3 border-2 border-gray-300">
+                                <div>u/chungi</div>
+                                <div>karma: 33</div>
+                                <div>Comments: 56</div>
+                            </div>
+                        </div>
+
+                        <div className="text-left px-3 pb-2">
+                            <p>hbfhbf fjenjfnejf jnfjenfjen jnfjenjf jfjnejfn is a bas nejfnjfne nejnejnf njfnjfn jnejefne jnfjejjfnje jbfbjfb</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-
-            <h2>Posts</h2>
-            <Pagination list={filteredPosts} />
-
-
-            <h2>Subreddits</h2>
-            <ol>
-                {
-                    subreddits.map(subreddit => (
-                        <li key={subreddit[0]}>{subreddit[0]} : {subreddit[1]}</li>
-                    ))
-                }
-            </ol>
         </div>
     )
 }
 
 
 export default Window
+
+/*
+<div className="lg:w-2/3">
+                <h1>Search your feelings...</h1>
+                <form onSubmit={handleSearch}>
+                    <input {...searchField} />
+                    <button type='submit'>Search</button>
+                </form>
+
+
+
+                <h2>Posts</h2>
+                <Pagination list={filteredPosts} />
+
+
+                <h2>Subreddits</h2>
+                <ol>
+                    {
+                        subreddits.map(subreddit => (
+                            <li key={subreddit[0]}>{subreddit[0]} : {subreddit[1]}</li>
+                        ))
+                    }
+                </ol>
+            </div>
+
+*/
