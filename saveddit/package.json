@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "@tailwindcss/line-clamp": "^0.2.1",
     "add": "^2.0.6",
     "axios": "^0.21.1",
     "fuse.js": "^6.4.6",

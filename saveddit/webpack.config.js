@@ -1,8 +1,6 @@
 const path = require('path')
 
 const config = (env, argv) => {
-    console.log(argv.mode)
-
     return {
         entry: ['@babel/polyfill', './src/index.js'],
         output: {

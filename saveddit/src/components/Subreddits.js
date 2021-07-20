@@ -5,8 +5,6 @@ const Subreddits = ({ subreddits }) => {
 
     const [showDetails, setShowDetails] = useState(false)
 
-    console.log(subreddits)
-
     return (
         <div className="subreddits flex-1 flex flex-col overflow-y-hidden">
             <div className="bg-green-700 text-white h-14 p-3 flex items-center justify-between text-xl font-bold flex-shrink-0">
