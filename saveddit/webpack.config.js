@@ -17,7 +17,7 @@ const config = (env, argv) => {
                 }
             }
         },
-        devtool: (argv.mode === 'production') ? 'source-map' : false,
+        devtool: false,
         module: {
             rules: [
                 {
