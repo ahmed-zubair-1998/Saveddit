@@ -32,7 +32,7 @@ const Subreddits = ({ subreddits }) => {
                     </div>
                 </div>
 
-                <div className="h-5/6 overflow-y-auto grid grid-cols-2 items-center">
+                <div className="h-5/6 lg:overflow-y-auto grid grid-cols-2 items-center">
                     {
                         subreddits.map(subreddit => {
                             return (

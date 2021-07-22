@@ -10,6 +10,6 @@
         @apply bg-red-300 border-red-700
     }
     .paginator-button {
-        @apply rounded-full bg-red-400 h-10 w-10 hover:bg-red-500 hover:text-white font-semibold
+        @apply rounded-full bg-red-400 sm:h-10 sm:w-10 h-7 w-7 hover:bg-red-500 hover:text-white font-semibold
     }
 }

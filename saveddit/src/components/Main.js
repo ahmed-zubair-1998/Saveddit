@@ -31,8 +31,8 @@ const Main = () => {
     return (
         <div className="bg-gray-900 flex-1 flex flex-col text-gray-50 static lg:overflow-y-hidden">
             <div className="bg-gray-800 h-16 py-3 px-6 flex justify-between items-center">
-                <img className="h-12 w-auto" src={ Logo } alt="Saveddit" />
-                <button onClick={toggleSignOutButton} className={`${signOutButton ? '' : 'bg-gray-600'} hover:bg-gray-600 px-4 py-2 rounded-md`}>
+                <img className="h-8 sm:h-12 w-auto" src={ Logo } alt="Saveddit" />
+                <button onClick={toggleSignOutButton} className={`${signOutButton ? '' : 'bg-gray-600'} hover:bg-gray-600 px-4 py-2 rounded-md text-sm sm:text-base`}>
                     u/{username}
                 </button>
             </div>
