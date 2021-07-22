@@ -157,7 +157,9 @@ const List = ({ list }) => {
                     return (
                         <div className="post bg-gray-100 text-gray-800 rounded-lg w-4/5 mx-auto px-1 py-3 my-5" key={post.url}>
                             <div className="flex flex-col sm:flex-row space-y-1 items-center justify-between pb-2 mb-4 px-4 border-b-2 border-gray-500">
-                                <a href={`https://www.reddit.com/r/${post.subreddit}`}>r/{post.subreddit}</a>
+                                <a className="bg-pink-600 transform hover:scale-105 py-1 px-2 rounded-full" href={`https://www.reddit.com/r/${post.subreddit}`} target="_blank">
+                                    r/{post.subreddit}
+                                </a>
                                 <p>{getDateTimeString(post.created)}</p>
                             </div>
 
@@ -165,12 +167,18 @@ const List = ({ list }) => {
                                 {
                                     post.image && <img src={post.image} />
                                 }
-                                <a className="font-semibold text-xl" href={post.url}>{post.title}</a>
+                                <a className="font-semibold text-xl bg-gray-200 py-1 hover:bg-gray-300 rounded-md w-full" href={post.url} target="_blank">
+                                    {post.title}
+                                </a>
                             </div>
 
                             <div className="py-3">
                                 <div className="grid grid-cols-3 items-center px-3 border-2 border-gray-500">
-                                    <a className="col-span-3 sm:col-span-1" href={`https://www.reddit.com/u/${post.author}`}>u/{post.author}</a>
+                                    <div className="col-span-3 sm:col-span-1 py-1 transform hover:scale-105">
+                                        <a className="bg-pink-600 py-1 px-2 rounded-full" href={`https://www.reddit.com/u/${post.author}`} target="_blank">
+                                            u/{post.author}
+                                        </a>
+                                    </div>
                                     <div>karma: {post.score}</div>
                                     <div className="col-start-3">Comments: {post.comments}</div>
                                 </div>
