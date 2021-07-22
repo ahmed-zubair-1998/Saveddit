@@ -159,9 +159,11 @@ const List = ({ list }) => {
                                 <p>{getDateTimeString(post.created)}</p>
                             </div>
 
-                            <div className="text-left flex">
-                                <div className="bg-gray-400 h-14 w-14 float-left">Image</div>
-                                <a className="px-2" href={post.url}>{post.title}</a>
+                            <div className="flex flex-col items-center space-y-4">
+                                {
+                                    post.image && <img src={post.image} />
+                                }
+                                <a className="font-semibold text-xl" href={post.url}>{post.title}</a>
                             </div>
 
                             <div className="py-3">

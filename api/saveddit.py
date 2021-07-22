@@ -124,10 +124,28 @@ def get_username(access_token):
     return res.json()['name']
 
 
+def get_image_url(data):
+    try:
+        if 'preview' in data:
+            image = data['preview' ]['images'][0]['source']['url']
+            if 'nsfw' in data['preview' ]['images'][0]['variants']:
+                image = data['preview' ]['images'][0]['variants']['nsfw']['source']['url']
+            elif 'obfuscated' in data['preview' ]['images'][0]['variants']:
+                image = data['preview' ]['images'][0]['variants']['obfuscated']['source']['url']
+            return image
+        elif 'media_metadata' in data:
+            for obj in data['media_metadata']:
+                if data['media_metadata'][obj]['status'] == 'valid' and data['media_metadata'][obj]['e'] == 'Image':
+                    return data['media_metadata'][obj]['s']['u']
+        return ''
+    except Exception as exc:
+        return ''
+
+
 def get_saved_posts(access_token, username):
     after = 0
     while True:
-        url = f'{REDDIT_OAUTH_ROOT_URL}/user/{username}/saved?limit=100'
+        url = f'{REDDIT_OAUTH_ROOT_URL}/user/{username}/saved?limit=100&raw_json=1'
         if after:
             url += f'&after={after}'
         res = requests.get(
@@ -151,6 +169,7 @@ def get_saved_posts(access_token, username):
                     'comments': post['num_comments'],
                     'created': post['created'],
                     'author': post['author'],
+                    'image': get_image_url(post)
                 }
             except:
                 print('Error parsing saved data...', child)
