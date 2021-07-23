@@ -4,12 +4,12 @@
 
 @layer components {
     .selected-subreddit {
-        @apply bg-green-200 border-green-500 border-4 text-gray-800 p-4 rounded-full flex justify-between
+        @apply bg-blue-200 border-blue-300 hover:bg-blue-300 hover:border-blue-200 border-4 p-4 rounded-full flex justify-between
     }
     .unselected-subreddit {
-        @apply bg-red-300 border-red-700
+        @apply bg-red-100 border-red-300 hover:bg-red-400 hover:border-red-200 border-4 p-4 rounded-full flex justify-between
     }
     .paginator-button {
-        @apply rounded-full bg-red-400 sm:h-10 sm:w-10 h-7 w-7 hover:bg-red-500 hover:text-white font-semibold
+        @apply rounded-full sm:h-10 sm:w-10 h-7 w-7 bg-red-300 hover:bg-red-400 hover:text-blue-0 font-semibold
     }
 }

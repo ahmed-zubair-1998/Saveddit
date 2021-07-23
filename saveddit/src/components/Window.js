@@ -60,17 +60,17 @@ const Window = () => {
     return (
         <div className="lg:flex lg:flex-1 lg:overflow-y-hidden">
 
-            <div className="lg:w-1/3 bg-green-300 flex flex-col overflow-y-hidden">
+            <div className="lg:w-1/3 bg-blue-100 flex flex-col overflow-y-hidden">
                 <SearchPanel />
 
                 <Subreddits subreddits={subreddits}/>
             </div>
 
-            <div className="main lg:w-2/3 text-gray-50 overflow-y-auto">
+            <div className="main lg:w-2/3 text-blue-0 overflow-y-auto">
                 <div className="info flex flex-col space-y-1">
                     <div className="text-center p-3">
                         <div className="font-semibold text-lg">
-                            <div className="bg-gray-700 rounded-md py-2">
+                            <div className="bg-blue-300 rounded-md py-2">
                                 Filters
                             </div>
                         </div>
@@ -81,7 +81,7 @@ const Window = () => {
                 </div>
 
                 <div className="text-center font-semibold text-lg p-3">
-                    <div className="bg-gray-700 rounded-md py-2">
+                    <div className="bg-blue-300 rounded-md py-2">
                         Posts
                     </div>
                 </div>

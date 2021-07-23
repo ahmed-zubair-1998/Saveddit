@@ -1,5 +1,3 @@
-const colors = require('tailwindcss/colors')
-
 module.exports = {
   purge: {
     enabled: true,
@@ -11,8 +9,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        sky: colors.sky,
-        cyan: colors.cyan,
+        blue: {
+          0: '#F1FAEE',
+          100: '#A8DADC',
+          200: '#457B9D',
+          300: '#1D3557',
+          400: '#1E2D42',
+          500: '#1F2937'
+        },
+        red: {
+          100: '#EA8689',
+          200: '#E86068',
+          300: '#E63946',
+          400: '#D13440',
+        },
       },
       text: ['hover'],
     },

@@ -29,14 +29,14 @@ const Main = () => {
     }
 
     return (
-        <div className="bg-gray-900 flex-1 flex flex-col text-gray-50 static lg:overflow-y-hidden">
-            <div className="bg-gray-800 h-16 py-3 px-6 flex justify-between items-center">
+        <div className="bg-blue-500 flex-1 flex flex-col text-blue-0 static lg:overflow-y-hidden cursor-default">
+            <div className="bg-blue-400 shadow-lg h-16 py-3 px-6 flex justify-between items-center">
                 <img className="h-8 sm:h-12 w-auto" src={ Logo } alt="Saveddit" />
-                <button onClick={toggleSignOutButton} className={`${signOutButton ? '' : 'bg-gray-600'} hover:bg-gray-600 px-4 py-2 rounded-md text-sm sm:text-base`}>
+                <button onClick={toggleSignOutButton} className={`${signOutButton ? '' : 'bg-blue-200'} hover:bg-blue-200 px-4 py-2 rounded-md text-sm sm:text-base`}>
                     u/{username}
                 </button>
             </div>
-            <button className={`${signOutButton} mt-16 py-3 px-6 rounded-md bg-red-300 text-gray-800 hover:text-gray-50 hover:bg-red-600 absolute right-6`} onClick={handleLogout}>
+            <button className={`${signOutButton} mt-16 py-3 px-6 rounded-md bg-red-400 hover:bg-red-200 hover:shadow-2xl absolute right-6`} onClick={handleLogout}>
                 Sign Out
             </button>
             <div className="flex-1 flex flex-col overflow-y-hidden">
