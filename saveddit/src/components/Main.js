@@ -36,7 +36,7 @@ const Main = () => {
                     u/{username}
                 </button>
             </div>
-            <button className={`${signOutButton} mt-16 py-3 px-6 rounded-md bg-red-400 hover:bg-red-200 hover:shadow-2xl absolute right-6`} onClick={handleLogout}>
+            <button className={`${signOutButton} mt-16 py-3 px-6 rounded-md bg-red-400 hover:bg-red-100 hover:shadow-2xl hover:text-black absolute right-6`} onClick={handleLogout}>
                 Sign Out
             </button>
             <div className="flex-1 flex flex-col overflow-y-hidden">

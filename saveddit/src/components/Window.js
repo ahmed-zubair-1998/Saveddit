@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Fuse from 'fuse.js'
 
-import useField from '../hooks/useField'
 import Pagination from './Pagination'
 import SearchPanel from './SearchPanel'
 import Subreddits from './Subreddits'
@@ -11,9 +10,9 @@ import Subreddits from './Subreddits'
 const Window = () => {
     const posts = useSelector(state => state.savedData.posts)
     const subreddits = useSelector(state => state.savedData.subreddits)
-    const searchField = useField('text')
     const [filteredPosts, setFilteredPosts] = useState(posts)
     const fuse = useRef(null)
+    const [queryString, setQueryString] = useState('')
 
     useEffect(() => {
         if (!filteredPosts) {
@@ -39,17 +38,17 @@ const Window = () => {
         fuse.current = new Fuse(filteredPosts, options, myIndex)
     }, [])
 
-    const handleSearch = (event) => {
-        event.preventDefault()
+    const filterPosts = (searchQuery) => {
+        setQueryString(searchQuery)
         if (!fuse.current) {
             console.log('You have no existing saved post. Nothing to search...')
             return
         }
-        if (searchField.value === '') {
-            setFilteredPosts(posts.filter(post => post))
+        if (searchQuery === '') {
+            setFilteredPosts([...posts])
             return
         }
-        let temp = fuse.current.search(searchField.value).map(item => {
+        let temp = fuse.current.search(searchQuery).map(item => {
             return item.item
         })
         setFilteredPosts(temp)
@@ -61,7 +60,7 @@ const Window = () => {
         <div className="lg:flex lg:flex-1 lg:overflow-y-hidden">
 
             <div className="lg:w-1/3 bg-blue-100 flex flex-col overflow-y-hidden">
-                <SearchPanel />
+                <SearchPanel filterPosts={filterPosts}/>
 
                 <Subreddits subreddits={subreddits}/>
             </div>
@@ -74,9 +73,15 @@ const Window = () => {
                                 Filters
                             </div>
                         </div>
-                        <p className="pt-3">No search query</p>
+                        <p className="pt-3">
+                            {
+                                queryString ?
+                                `Searching for: ${queryString}` :
+                                'No search query'
+                            }                            
+                        </p>
                         <p>Number of subreddits selected : 4</p>
-                        <p>Number of total posts : 73</p>
+                        <p>Number of total posts : {filteredPosts.length}</p>
                     </div>
                 </div>
 
@@ -100,29 +105,3 @@ const Window = () => {
 
 
 export default Window
-
-/*
-<div className="lg:w-2/3">
-                <h1>Search your feelings...</h1>
-                <form onSubmit={handleSearch}>
-                    <input {...searchField} />
-                    <button type='submit'>Search</button>
-                </form>
-
-
-
-                <h2>Posts</h2>
-                <Pagination list={filteredPosts} />
-
-
-                <h2>Subreddits</h2>
-                <ol>
-                    {
-                        subreddits.map(subreddit => (
-                            <li key={subreddit[0]}>{subreddit[0]} : {subreddit[1]}</li>
-                        ))
-                    }
-                </ol>
-            </div>
-
-*/
