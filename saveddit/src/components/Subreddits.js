@@ -1,9 +1,33 @@
 import React, { useState } from 'react'
 
 
+const Subreddit = ({ subreddit, toggleSelection, subredditClass }) => {
+    return (
+        <div className="p-4" onClick={() => toggleSelection(subreddit)}>
+            <div className={`${subredditClass} border-4 p-4 rounded-full flex justify-between`}>
+                <div className="grid grid-cols-4 w-full items-center">
+                    <div className="col-span-3 break-words">{subreddit[0]}</div>
+                    <div className="col-span-1 text-right">{subreddit[1]}</div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
 const Subreddits = ({ subreddits }) => {
 
     const [showDetails, setShowDetails] = useState(false)
+    const [selectedSubreddits, setSelectedSubreddits] = useState([])
+
+
+    const handleSelection = (subreddit) => {
+        setSelectedSubreddits([...selectedSubreddits, subreddit])
+    }
+
+    const handleUnselection = (subreddit) => {
+        setSelectedSubreddits(selectedSubreddits.filter(x => subreddit !== x))
+    }
 
     return (
         <div className="subreddits flex-1 flex flex-col overflow-y-hidden">
@@ -32,20 +56,39 @@ const Subreddits = ({ subreddits }) => {
                     </div>
                 </div>
 
-                <div className="h-5/6 lg:overflow-y-auto grid grid-cols-2 items-center">
+                <div className="h-5/6 lg:overflow-y-auto">
+                    <div className="Selected-Subreddits grid grid-cols-2 items-center">
+                        {
+                            selectedSubreddits.length ?
+                                selectedSubreddits.map(subreddit => {
+                                    return <Subreddit key={subreddit} subreddit={subreddit} toggleSelection={handleUnselection} subredditClass={"selected-subreddit"} />
+                                }) :
+                                ''
+
+                        }
+                    </div>
+                    <div className="Unselected-Subreddits grid grid-cols-2 items-center">
+                        {
+                            selectedSubreddits.length ?
+                                subreddits.reduce((arr, x) => {
+                                    if (!selectedSubreddits.includes(x)) {
+                                        arr.push(<Subreddit key={x} subreddit={x} toggleSelection={handleSelection} subredditClass={"unselected-subreddit"} />)
+                                    }
+                                    return arr
+                                }, []) :
+                                ''
+                        }
+                    </div>
                     {
-                        subreddits.map(subreddit => {
-                            return (
-                                <div className="p-4" key={subreddit}>
-                                    <div className="selected-subreddit border-4 p-4 rounded-full flex justify-between">
-                                        <div className="grid grid-cols-4 w-full items-center">
-                                            <div className="col-span-3 break-words">{subreddit[0]}</div>
-                                            <div className="col-span-1 text-right">{subreddit[1]}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })
+                        selectedSubreddits.length ?
+                            '' :
+                            <div className="Subreddits grid grid-cols-2 items-center">
+                                {
+                                    subreddits.map(subreddit => {
+                                        return <Subreddit key={subreddit} subreddit={subreddit} toggleSelection={handleSelection} subredditClass={"selected-subreddit"} />
+                                    })
+                                }
+                            </div>
                     }
                 </div>
 
