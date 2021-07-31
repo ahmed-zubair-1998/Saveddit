@@ -10,9 +10,11 @@ import Subreddits from './Subreddits'
 const Window = () => {
     const posts = useSelector(state => state.savedData.posts)
     const subreddits = useSelector(state => state.savedData.subreddits)
+    const searchQuery = useSelector(state => state.searchQuery)
+    const selectedSubreddits = useSelector(state => state.selectedSubreddits)
+
     const [filteredPosts, setFilteredPosts] = useState(posts)
     const fuse = useRef(null)
-    const [queryString, setQueryString] = useState('')
     const listTopRef = useRef(null)
 
     const moveToTop = () => {
@@ -45,59 +47,45 @@ const Window = () => {
         fuse.current = new Fuse(filteredPosts, options, myIndex)
     }, [])
 
-    const filterPosts = (searchQuery) => {
-        setQueryString(searchQuery)
-        if (!fuse.current) {
-            console.log('You have no existing saved post. Nothing to search...')
-            return
-        }
-        if (searchQuery === '') {
-            setFilteredPosts([...posts])
-            return
-        }
-        let temp = fuse.current.search(searchQuery).map(item => {
-            return item.item
-        })
-        setFilteredPosts(temp)
-        moveToTop()
-    }
-
-    const filterSubreddits = (subreddits) => {
+    const filterPosts = () => {
         if (!fuse.current) {
             console.log('You have no existing saved post. Nothing to search...')
             return
         }
         let temp
-        if (queryString === '') {
+        if (searchQuery === '') {
             temp = [...posts]
         } else {
-            temp = fuse.current.search(queryString).map(item => {
+            temp = fuse.current.search(searchQuery).map(item => {
                 return item.item
             })
         }
-        if (!subreddits.length) {
+        if (!selectedSubreddits.length) {
             setFilteredPosts(temp)
         } else {
             setFilteredPosts(temp.filter(post => {
-                return subreddits.includes(post.subreddit)
+                return selectedSubreddits.map(x => x[0]).includes(post.subreddit)
             }))
         }
         moveToTop()
     }
 
+    useEffect(() => {
+        filterPosts()
+    }, [selectedSubreddits, searchQuery])
 
 
     return (
         <div className="lg:flex lg:flex-1 lg:overflow-y-hidden">
 
             <div className="lg:w-1/3 bg-blue-100 flex flex-col overflow-y-hidden">
-                <SearchPanel filterPosts={filterPosts} />
+                <SearchPanel />
 
-                <Subreddits subreddits={subreddits} filterSubreddits={filterSubreddits} />
+                <Subreddits subreddits={subreddits} />
             </div>
 
             <div className="main lg:w-2/3 text-blue-0 overflow-y-auto">
-                <div className="info flex flex-col space-y-1">
+                <div className="info flex flex-col space-y-1"  ref={listTopRef}>
                     <div className="text-center p-3">
                         <div className="font-semibold text-lg">
                             <div className="bg-blue-300 rounded-md py-2">
@@ -106,17 +94,17 @@ const Window = () => {
                         </div>
                         <p className="pt-3">
                             {
-                                queryString ?
-                                    `Searching for: ${queryString}` :
+                                searchQuery ?
+                                    `Searching for: ${searchQuery}` :
                                     'No search query'
                             }
                         </p>
-                        <p>Number of subreddits selected : 4</p>
+                        <p>Number of subreddits selected : { selectedSubreddits.length || subreddits.length }</p>
                         <p>Number of total posts : {filteredPosts.length}</p>
                     </div>
                 </div>
 
-                <div className="text-center font-semibold text-lg p-3" ref={listTopRef}>
+                <div className="text-center font-semibold text-lg p-3">
                     <div className="bg-blue-300 rounded-md py-2">
                         Posts
                     </div>

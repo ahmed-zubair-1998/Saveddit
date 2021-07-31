@@ -162,7 +162,7 @@ def get_saved_posts(access_token, username):
             try:
                 yield {
                     'score': post['score'],
-                    'text': post['selftext'] if child['kind'] == 't3' else post['body_html'],
+                    'text': post['selftext'] if child['kind'] == 't3' else post['body'],
                     'subreddit': post['subreddit'],
                     'title': post['title'] if child['kind'] == 't3' else post['link_title'],
                     'url': f'https://www.reddit.com{post["permalink"]}',

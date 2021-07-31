@@ -1,21 +1,25 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import useField from '../hooks/useField'
 
+import { setSearchQuery } from '../reducers/searchFilterReducer'
 
-const SearchPanel = ({filterPosts}) => {
 
+const SearchPanel = () => {
+
+    const dispatch = useDispatch()
     const [showDetails, setShowDetails] = useState(false)
     const searchField = useField('text')
     const {reset, ...searchFieldTagProps} = searchField
+    
 
     const handleSearch = () => {
-        const searchQuery = searchField.value
-        filterPosts(searchQuery)
+        dispatch(setSearchQuery(searchField.value))
     }
 
     const handleReset = () => {
-        searchField.reset()
-        filterPosts('')
+        reset()
+        dispatch(setSearchQuery(''))
     }
 
     return (

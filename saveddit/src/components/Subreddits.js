@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import useField from '../hooks/useField'
+import { selectSubreddit, unselectSubreddit } from '../reducers/subredditsFilterReducer'
 
 
 const Subreddit = ({ subreddit, toggleSelection, subredditClass }) => {
@@ -16,10 +19,11 @@ const Subreddit = ({ subreddit, toggleSelection, subredditClass }) => {
 }
 
 
-const Subreddits = ({ subreddits, filterSubreddits }) => {
+const Subreddits = ({ subreddits }) => {
 
+    const dispatch = useDispatch()
+    const selectedSubreddits = useSelector(state => state.selectedSubreddits)
     const [showDetails, setShowDetails] = useState(false)
-    const [selectedSubreddits, setSelectedSubreddits] = useState([])
     const [filteredSubreddits, setFilteredSubreddits] = useState([...subreddits])
 
     const searchField = useField('text')
@@ -31,15 +35,12 @@ const Subreddits = ({ subreddits, filterSubreddits }) => {
         }))
     }, [searchField.value])
 
-
     const handleSelection = (subreddit) => {
-        setSelectedSubreddits([...selectedSubreddits, subreddit])
-        filterSubreddits([...selectedSubreddits, subreddit].map(x => x[0]))
+        dispatch(selectSubreddit(subreddit))
     }
 
     const handleUnselection = (subreddit) => {
-        setSelectedSubreddits(selectedSubreddits.filter(x => subreddit !== x))
-        filterSubreddits(selectedSubreddits.filter(x => subreddit !== x).map(x => x[0]))
+        dispatch(unselectSubreddit(subreddit))
     }
 
     return (
