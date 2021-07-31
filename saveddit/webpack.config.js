@@ -1,4 +1,5 @@
 const path = require('path')
+const CompressionPlugin = require("compression-webpack-plugin");
 
 const config = (env, argv) => {
     return {
@@ -38,7 +39,13 @@ const config = (env, argv) => {
                     },
                 },
             ],
-        }
+        },
+        plugins: [
+            new CompressionPlugin({
+                algorithm: 'gzip',
+                test: /\.(js|css)$/
+            })
+        ]
     }
 }
 module.exports = config

@@ -8,7 +8,7 @@
   "scripts": {
     "build": "webpack --node-env=production",
     "start": "webpack serve --node-env=development",
-    "deploy:build": "yarn run build && git add . && git commit -m 'Production build'"
+    "deploy:build": "yarn run build && git add . && git commit -m 'Production build' && git push heroku master"
   },
   "devDependencies": {
     "@babel/core": "^7.14.2",
@@ -16,6 +16,7 @@
     "@babel/preset-react": "^7.13.13",
     "autoprefixer": "^10.3.0",
     "babel-loader": "^8.2.2",
+    "compression-webpack-plugin": "^8.0.1",
     "css-loader": "^5.2.4",
     "deep-freeze": "^0.0.1",
     "postcss": "^8.3.5",
