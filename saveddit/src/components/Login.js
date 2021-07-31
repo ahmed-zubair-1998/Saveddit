@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getLoginLink } from '../services/mainService'
-import Logo from '../public/logo.png'
+import Logo from '../../public/logo.png'
 
 
 const Login = () => {

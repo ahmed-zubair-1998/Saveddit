@@ -5,7 +5,7 @@ import Window from './Window'
 import LoadingScreen from './LoadingScreen'
 import { setSavedData } from '../reducers/savedDataReducer'
 import { logout } from '../reducers/usernameReducer'
-import Logo from '../public/logo.png'
+import Logo from '../../public/logo.png'
 
 
 const Main = () => {
