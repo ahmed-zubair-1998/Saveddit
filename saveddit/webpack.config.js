@@ -17,7 +17,7 @@ const config = (env, argv) => {
                 }
             }
         },
-        devtool: false,
+        devtool: 'source-map',
         module: {
             rules: [
                 {

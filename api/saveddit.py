@@ -165,7 +165,7 @@ def get_saved_posts(access_token, username):
                     'text': post['selftext'] if child['kind'] == 't3' else post['body_html'],
                     'subreddit': post['subreddit'],
                     'title': post['title'] if child['kind'] == 't3' else post['link_title'],
-                    'url': post['url'] if child['kind'] == 't3' else post['permalink'],
+                    'url': f'https://www.reddit.com{post["permalink"]}',
                     'comments': post['num_comments'],
                     'created': post['created'],
                     'author': post['author'],

@@ -6,8 +6,9 @@
   "author": "Ahmed Zubair",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --mode=production",
-    "start": "webpack serve --mode=development"
+    "build": "webpack --node-env=production",
+    "start": "webpack serve --node-env=development",
+    "deploy:build": "npm run build && git add . && git commit -m 'Production build'"
   },
   "devDependencies": {
     "@babel/core": "^7.14.2",

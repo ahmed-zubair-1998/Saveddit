@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Post from './Post'
 
 
@@ -146,7 +146,7 @@ const List = ({ list }) => {
 }
 
 
-const Pagination = ({ list }) => {
+const Pagination = ({ list, moveToTop }) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [currentList, setCurrentList] = useState([])
 
@@ -179,17 +179,9 @@ const Pagination = ({ list }) => {
         setCurrentPage(1)
     }, [list])
 
-    const listTopRef = useRef(null)
-
-    const moveToTop = () => {
-        console.log('moving, page: ', currentPage)
-        listTopRef.current.scrollIntoView({
-            behavior: 'smooth',
-        })
-    }
 
     return (
-        <div ref={listTopRef}>
+        <div>
             <List list={currentList} />
             <PageIndex
                 pages={pages}

@@ -36,13 +36,11 @@ const SearchPanel = ({filterPosts}) => {
             <div className={`${showDetails ? '' : 'hidden'} lg:block py-4 px-6 bg-sky-100 block font-medium`}>
                 <div className="mt-1 relative rounded-md shadow-sm">
                     <input {...searchFieldTagProps} className="block text-black focus:ring-blue-200 focus:border-blue-200 w-full pl-7 pr-12 py-2 sm:text-sm border-blue-0 border-2 rounded-md" />
-                    <button className="absolute inset-y-0 right-0 pr-7 flex items-center" onClick={handleSearch}>
-                        <svg className="h-5 w-6" viewBox="0 0 20 20">
-                            <path d="M18.125,15.804l-4.038-4.037c0.675-1.079,1.012-2.308,1.01-3.534C15.089,4.62,12.199,1.75,8.584,1.75C4.815,1.75,1.982,4.726,2,8.286c0.021,3.577,2.908,6.549,6.578,6.549c1.241,0,2.417-0.347,3.44-0.985l4.032,4.026c0.167,0.166,0.43,0.166,0.596,0l1.479-1.478C18.292,16.234,18.292,15.968,18.125,15.804 M8.578,13.99c-3.198,0-5.716-2.593-5.733-5.71c-0.017-3.084,2.438-5.686,5.74-5.686c3.197,0,5.625,2.493,5.64,5.624C14.242,11.548,11.621,13.99,8.578,13.99 M16.349,16.981l-3.637-3.635c0.131-0.11,0.721-0.695,0.876-0.884l3.642,3.639L16.349,16.981z"></path>
-                        </svg>
-                    </button>
                 </div>
                 <div className="flex flex-row-reverse text-blue-0 text-lg pt-2">
+                    <button className="bg-blue-300 hover:bg-blue-200 py-2 px-4 rounded-md hover:text-black ml-4" onClick={handleSearch}>
+                        Search
+                    </button>
                     <button className="bg-blue-300 hover:bg-blue-200 py-2 px-4 rounded-md hover:text-black" onClick={handleReset}>
                         Reset
                     </button>

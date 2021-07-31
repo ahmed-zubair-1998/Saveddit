@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import useField from '../hooks/useField'
 
 
 const Subreddit = ({ subreddit, toggleSelection, subredditClass }) => {
@@ -15,18 +16,30 @@ const Subreddit = ({ subreddit, toggleSelection, subredditClass }) => {
 }
 
 
-const Subreddits = ({ subreddits }) => {
+const Subreddits = ({ subreddits, filterSubreddits }) => {
 
     const [showDetails, setShowDetails] = useState(false)
     const [selectedSubreddits, setSelectedSubreddits] = useState([])
+    const [filteredSubreddits, setFilteredSubreddits] = useState([...subreddits])
+
+    const searchField = useField('text')
+    const {reset, ...searchFieldTagProps} = searchField
+
+    useEffect(() => {
+        setFilteredSubreddits(subreddits.filter(x => {
+            return x[0].toLowerCase().startsWith(searchField.value.toLowerCase())
+        }))
+    }, [searchField.value])
 
 
     const handleSelection = (subreddit) => {
         setSelectedSubreddits([...selectedSubreddits, subreddit])
+        filterSubreddits([...selectedSubreddits, subreddit].map(x => x[0]))
     }
 
     const handleUnselection = (subreddit) => {
         setSelectedSubreddits(selectedSubreddits.filter(x => subreddit !== x))
+        filterSubreddits(selectedSubreddits.filter(x => subreddit !== x).map(x => x[0]))
     }
 
     return (
@@ -47,12 +60,7 @@ const Subreddits = ({ subreddits }) => {
             <div className={`${showDetails ? '' : 'hidden'} lg:block font-medium flex flex-col flex-1 overflow-y-hidden`}>
                 <div className="py-4 px-6 col-span-2 font-medium flex-shrink-0">
                     <div className="mt-1 relative rounded-md shadow-sm">
-                        <input type="text" className="block text-black focus:ring-blue-200 focus:border-blue-200 w-full pl-7 pr-12 py-2 sm:text-sm border-blue-0 border-2 rounded-md" />
-                        <button className="absolute inset-y-0 right-0 pr-7 flex items-center">
-                            <svg className="h-5 w-6" viewBox="0 0 20 20">
-                                <path d="M18.125,15.804l-4.038-4.037c0.675-1.079,1.012-2.308,1.01-3.534C15.089,4.62,12.199,1.75,8.584,1.75C4.815,1.75,1.982,4.726,2,8.286c0.021,3.577,2.908,6.549,6.578,6.549c1.241,0,2.417-0.347,3.44-0.985l4.032,4.026c0.167,0.166,0.43,0.166,0.596,0l1.479-1.478C18.292,16.234,18.292,15.968,18.125,15.804 M8.578,13.99c-3.198,0-5.716-2.593-5.733-5.71c-0.017-3.084,2.438-5.686,5.74-5.686c3.197,0,5.625,2.493,5.64,5.624C14.242,11.548,11.621,13.99,8.578,13.99 M16.349,16.981l-3.637-3.635c0.131-0.11,0.721-0.695,0.876-0.884l3.642,3.639L16.349,16.981z"></path>
-                            </svg>
-                        </button>
+                        <input placeholder="Search" {...searchFieldTagProps} className="block text-black focus:ring-blue-200 focus:border-blue-200 w-full pl-7 pr-12 py-2 sm:text-sm border-blue-0 border-2 rounded-md" />
                     </div>
                 </div>
 
@@ -70,7 +78,7 @@ const Subreddits = ({ subreddits }) => {
                     <div className="Unselected-Subreddits grid grid-cols-2 items-center">
                         {
                             selectedSubreddits.length ?
-                                subreddits.reduce((arr, x) => {
+                                filteredSubreddits.reduce((arr, x) => {
                                     if (!selectedSubreddits.includes(x)) {
                                         arr.push(<Subreddit key={x} subreddit={x} toggleSelection={handleSelection} subredditClass={"unselected-subreddit"} />)
                                     }
@@ -84,7 +92,7 @@ const Subreddits = ({ subreddits }) => {
                             '' :
                             <div className="Subreddits grid grid-cols-2 items-center">
                                 {
-                                    subreddits.map(subreddit => {
+                                    filteredSubreddits.map(subreddit => {
                                         return <Subreddit key={subreddit} subreddit={subreddit} toggleSelection={handleSelection} subredditClass={"selected-subreddit"} />
                                     })
                                 }

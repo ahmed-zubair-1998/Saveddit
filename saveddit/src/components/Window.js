@@ -13,6 +13,13 @@ const Window = () => {
     const [filteredPosts, setFilteredPosts] = useState(posts)
     const fuse = useRef(null)
     const [queryString, setQueryString] = useState('')
+    const listTopRef = useRef(null)
+
+    const moveToTop = () => {
+        listTopRef.current.scrollIntoView({
+            behavior: 'smooth',
+        })
+    }
 
     useEffect(() => {
         if (!filteredPosts) {
@@ -52,6 +59,30 @@ const Window = () => {
             return item.item
         })
         setFilteredPosts(temp)
+        moveToTop()
+    }
+
+    const filterSubreddits = (subreddits) => {
+        if (!fuse.current) {
+            console.log('You have no existing saved post. Nothing to search...')
+            return
+        }
+        let temp
+        if (queryString === '') {
+            temp = [...posts]
+        } else {
+            temp = fuse.current.search(queryString).map(item => {
+                return item.item
+            })
+        }
+        if (!subreddits.length) {
+            setFilteredPosts(temp)
+        } else {
+            setFilteredPosts(temp.filter(post => {
+                return subreddits.includes(post.subreddit)
+            }))
+        }
+        moveToTop()
     }
 
 
@@ -60,9 +91,9 @@ const Window = () => {
         <div className="lg:flex lg:flex-1 lg:overflow-y-hidden">
 
             <div className="lg:w-1/3 bg-blue-100 flex flex-col overflow-y-hidden">
-                <SearchPanel filterPosts={filterPosts}/>
+                <SearchPanel filterPosts={filterPosts} />
 
-                <Subreddits subreddits={subreddits}/>
+                <Subreddits subreddits={subreddits} filterSubreddits={filterSubreddits} />
             </div>
 
             <div className="main lg:w-2/3 text-blue-0 overflow-y-auto">
@@ -76,16 +107,16 @@ const Window = () => {
                         <p className="pt-3">
                             {
                                 queryString ?
-                                `Searching for: ${queryString}` :
-                                'No search query'
-                            }                            
+                                    `Searching for: ${queryString}` :
+                                    'No search query'
+                            }
                         </p>
                         <p>Number of subreddits selected : 4</p>
                         <p>Number of total posts : {filteredPosts.length}</p>
                     </div>
                 </div>
 
-                <div className="text-center font-semibold text-lg p-3">
+                <div className="text-center font-semibold text-lg p-3" ref={listTopRef}>
                     <div className="bg-blue-300 rounded-md py-2">
                         Posts
                     </div>
@@ -93,8 +124,8 @@ const Window = () => {
 
                 <div className="posts text-center px-4 py-5">
 
-                    <Pagination list={filteredPosts} />
-            
+                    <Pagination list={filteredPosts} moveToTop={moveToTop} />
+
                 </div>
             </div>
 
