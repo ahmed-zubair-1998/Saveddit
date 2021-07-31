@@ -34,12 +34,7 @@ def generate_reddit_auth_code_payload(code):
 
 @app.route('/')
 def root():
-    if os.environ.get('FLASK_ENV') == 'development':
-        return redirect(APP_FRONTEND_URL)  
-    else:
-        response = make_response(app.send_static_file('index.html'))
-        response.headers['Accept-Encoding'] = 'gzip'
-        return response
+    return redirect(APP_FRONTEND_URL) if os.environ.get('FLASK_ENV') == 'development' else app.send_static_file('index.html')
 
 
 @app.route('/oauth-redirect', methods=['GET'])
