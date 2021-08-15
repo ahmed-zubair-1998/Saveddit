@@ -35,7 +35,7 @@ def generate_reddit_auth_code_payload(code):
 @app.route('/')
 def root():
     response = redirect(APP_FRONTEND_URL) if os.environ.get('FLASK_ENV') == 'development' else app.send_static_file('index.html')
-    response.headers['Content-Encoding'] = 'gzip'
+    response.headers['Accept-Encoding'] = 'gzip'
     return response
 
 
