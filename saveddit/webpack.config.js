@@ -43,7 +43,7 @@ const config = (env, argv) => {
         plugins: [
             new CompressionPlugin({
                 algorithm: 'gzip',
-                test: /\.(js|css)$/
+                test: /\.js$|\.css$|\.html$/,
             }),
         ]
     }
