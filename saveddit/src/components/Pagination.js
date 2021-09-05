@@ -185,7 +185,7 @@ const Pagination = ({ list, moveToTop }) => {
         ReactGA.event({
             category: 'Page Change',
             action: 'Change Current Page',
-            value: pageNum
+            label: pageNum.toString()
         });
 
         setCurrentPage(pageNum)
