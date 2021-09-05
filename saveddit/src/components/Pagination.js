@@ -100,6 +100,7 @@ const PageIndex = (props) => {
         if (props.currentPage - 1 === 0) {
             return
         }
+        setTimeout(props.moveToTop, 300)
         props.setCurrentPage(props.currentPage - 1)
     }
 
@@ -107,6 +108,7 @@ const PageIndex = (props) => {
         if (props.currentPage + 1 > props.pages) {
             return
         }
+        setTimeout(props.moveToTop, 300)
         props.setCurrentPage(props.currentPage + 1)
     }
 
