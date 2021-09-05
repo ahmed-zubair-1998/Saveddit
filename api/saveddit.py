@@ -3,9 +3,11 @@ from collections import Counter
 
 import requests
 from flask import Flask, redirect, request, make_response, jsonify
+from flask_compress import Compress
 
 
 app = Flask(__name__, static_url_path='', static_folder='../saveddit/build')
+Compress(app)
 
 
 REDDIT_ROOT_URL = 'https://www.reddit.com'
