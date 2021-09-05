@@ -166,13 +166,6 @@ const Pagination = ({ list, moveToTop }) => {
                 }
             })
         )
-
-        ReactGA.event({
-            category: 'Page Change',
-            action: 'Change Current Page',
-            value: currentPage
-        });
-
     }, [currentPage])
 
     useEffect(() => {
@@ -188,6 +181,16 @@ const Pagination = ({ list, moveToTop }) => {
         setCurrentPage(1)
     }, [list])
 
+    const changePage = (pageNum) => {
+        ReactGA.event({
+            category: 'Page Change',
+            action: 'Change Current Page',
+            value: pageNum
+        });
+
+        setCurrentPage(pageNum)
+    }
+
 
     return (
         <div>
@@ -195,7 +198,7 @@ const Pagination = ({ list, moveToTop }) => {
             <PageIndex
                 pages={pages}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
+                setCurrentPage={changePage}
                 moveToTop={moveToTop}
             />
             <button onClick={moveToTop}>Go To Top</button>
