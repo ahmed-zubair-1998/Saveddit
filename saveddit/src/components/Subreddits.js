@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import ReactGA from 'react-ga';
 
 import useField from '../hooks/useField'
 import { selectSubreddit, unselectSubreddit } from '../reducers/subredditsFilterReducer'
@@ -27,7 +28,7 @@ const Subreddits = ({ subreddits }) => {
     const [filteredSubreddits, setFilteredSubreddits] = useState([...subreddits])
 
     const searchField = useField('text')
-    const {reset, ...searchFieldTagProps} = searchField
+    const { reset, ...searchFieldTagProps } = searchField
 
     useEffect(() => {
         setFilteredSubreddits(subreddits.filter(x => {
@@ -36,10 +37,20 @@ const Subreddits = ({ subreddits }) => {
     }, [searchField.value])
 
     const handleSelection = (subreddit) => {
+        ReactGA.event({
+            category: 'Subreddit FIlter',
+            action: 'Selected a Subreddit'
+        });
+
         dispatch(selectSubreddit(subreddit))
     }
 
     const handleUnselection = (subreddit) => {
+        ReactGA.event({
+            category: 'Subreddit FIlter',
+            action: 'Unselected a Subreddit'
+        });
+        
         dispatch(unselectSubreddit(subreddit))
     }
 

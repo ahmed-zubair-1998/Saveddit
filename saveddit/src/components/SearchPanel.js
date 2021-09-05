@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import useField from '../hooks/useField'
+import ReactGA from 'react-ga';
 
+import useField from '../hooks/useField'
 import { setSearchQuery } from '../reducers/searchFilterReducer'
 
 
@@ -10,14 +11,24 @@ const SearchPanel = () => {
     const dispatch = useDispatch()
     const [showDetails, setShowDetails] = useState(false)
     const searchField = useField('text')
-    const {reset, ...searchFieldTagProps} = searchField
-    
+    const { reset, ...searchFieldTagProps } = searchField
+
 
     const handleSearch = () => {
+        ReactGA.event({
+            category: 'Search',
+            action: 'Filter Posts by Search Query'
+        });
+
         dispatch(setSearchQuery(searchField.value))
     }
 
     const handleReset = () => {
+        ReactGA.event({
+            category: 'Search',
+            action: 'Reset Search Query'
+        });
+
         reset()
         dispatch(setSearchQuery(''))
     }

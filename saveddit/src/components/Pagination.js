@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import ReactGA from 'react-ga';
+
 import Post from './Post'
 
 
@@ -164,6 +166,13 @@ const Pagination = ({ list, moveToTop }) => {
                 }
             })
         )
+
+        ReactGA.event({
+            category: 'Page Change',
+            action: 'Change Current Page',
+            value: currentPage
+        });
+
     }, [currentPage])
 
     useEffect(() => {

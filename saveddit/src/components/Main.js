@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import ReactGA from 'react-ga';
 
 import Window from './Window'
 import LoadingScreen from './LoadingScreen'
@@ -18,6 +19,11 @@ const Main = () => {
     }, [])
 
     const handleLogout = () => {
+        ReactGA.event({
+            category: 'Logout',
+            action: 'User Logout'
+        });
+
         dispatch(logout())
     }
 
@@ -31,7 +37,7 @@ const Main = () => {
     return (
         <div className="bg-blue-500 flex-1 flex flex-col text-blue-0 static lg:overflow-y-hidden cursor-default">
             <div className="bg-blue-400 shadow-lg h-16 py-3 px-6 flex justify-between items-center">
-                <img className="h-8 sm:h-12 w-auto" src={ Logo } alt="Saveddit" />
+                <img className="h-8 sm:h-12 w-auto" src={Logo} alt="Saveddit" />
                 <button onClick={toggleSignOutButton} className={`${signOutButton ? '' : 'bg-blue-200'} hover:bg-blue-200 px-4 py-2 rounded-md text-sm sm:text-base`}>
                     u/{username}
                 </button>
@@ -42,8 +48,8 @@ const Main = () => {
             <div className="flex-1 flex flex-col overflow-y-hidden">
                 {
                     loaded
-                    ? <Window />
-                    : <LoadingScreen />
+                        ? <Window />
+                        : <LoadingScreen loggedIn={true} />
                 }
             </div>
         </div>
