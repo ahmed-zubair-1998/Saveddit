@@ -13,8 +13,9 @@ const App = () => {
     dispatch(setUsername())
     const username = useSelector(state => state.username)
 
-    ReactGA.initialize('UA-206691949-1');
-    ReactGA.pageview(window.location.href);
+    ReactGA.initialize('UA-206691949-1')
+    ReactGA.ga('set', 'checkProtocolTask', null)
+    ReactGA.pageview(window.location.href)
 
     return (
         <div className="h-screen flex flex-col">
