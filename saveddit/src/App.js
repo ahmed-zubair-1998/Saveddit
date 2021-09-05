@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUsername } from './reducers/usernameReducer'
+import ReactGA from 'react-ga';
 
+import { setUsername } from './reducers/usernameReducer'
 import Login from './components/Login'
 import Main from './components/Main'
 import LoadingScreen from './components/LoadingScreen'
-import ReactGA from 'react-ga';
 
 
 const App = () => {

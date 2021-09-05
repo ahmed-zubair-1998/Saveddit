@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import ReactGA from 'react-ga';
 
 import { getLoginLink } from '../services/mainService'
 
@@ -27,12 +28,12 @@ const Login = () => {
                     </div>
                     <div className="bg-gradient-to-r from-blue-300 to-blue-400 border-t-4 border-blue-200 mx-8 p-8 text-lg font-semibold space-y-4">
                         <h3>Your account information nor any other Reddit data is saved on our server</h3>
-                        <h3>View source code / Raise issue or request a feature - <a href="https://www.github.com/ahmed-zubair-1998" target="_blank" className="text-blue-100 underline hover:text-blue-200">Github</a></h3>
+                        <h3>View source code / Raise issue or request a feature - <ReactGA.OutboundLink eventLabel="Github Repo Click" to="https://www.github.com/ahmed-zubair-1998" target="_blank" className="text-blue-100 underline hover:text-blue-200">Github</ReactGA.OutboundLink></h3>
                     </div>
                     <div className="mx-8 mb-8 px-4 py-6 w-auto bg-gradient-to-r from-red-300 to-blue-400">
                         {
                             url
-                                ? <a className="font-bold border-4 border-red-200 bg-red-400  hover:bg-red-200 py-3 px-4" href={url}>Login with Reddit</a>
+                                ? <ReactGA.OutboundLink className="font-bold border-4 border-red-200 bg-red-400  hover:bg-red-200 py-3 px-4" to={url} eventLabel='Login Button Click'>Login with Reddit</ReactGA.OutboundLink>
                                 : ''
                         }
                     </div>
