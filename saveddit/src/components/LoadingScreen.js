@@ -6,10 +6,12 @@ import Logo from '../../public/logo.png'
 
 const LoadingScreen = ({loggedIn}) => {
 
-    ReactGA.event({
-        category: 'Login Approximation',
-        action: 'Loading Screen Launched'
-    });
+    if(loggedIn){
+        ReactGA.event({
+            category: 'Login Approximation',
+            action: 'Fetching Screen Launched'
+        });
+    }
 
     return (
         <div className="bg-blue-500 text-white flex-1 flex flex-col justify-center items-center">

@@ -13,7 +13,7 @@ const App = () => {
     dispatch(setUsername())
     const username = useSelector(state => state.username)
 
-    ReactGA.initialize('G-XWFGZL51TG');
+    ReactGA.initialize('UA-206691949-1');
     ReactGA.pageview(window.location.href);
 
     return (
