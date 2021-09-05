@@ -16,15 +16,15 @@ const LoadingScreen = ({loggedIn}) => {
     return (
         <div className="bg-blue-500 text-white flex-1 flex flex-col justify-center items-center">
             <img className="lg:h-1/2 h-1/4 w-1/2" src={Logo} />
-            <span className="text-center">
+            <span className="text-center p-4">
                 Search and Filter through your <span className="text-red-200">Saved Reddit</span> Posts
             </span>
-            <span className="py-4 text-2xl font-bold tracking-widest flex items-center">
-                <span className="text-blue-0 animate-bounce">
+            <div className="flex sm:flex-row flex-col py-4 text-2xl font-bold tracking-widest flex items-center">
+                <div className="text-blue-0 animate-bounce">
                     {
                         loggedIn ? 'Fetching your Data' : 'Loading'
                     }
-                </span>
+                </div>
                 <div className="py-1 flex">
                     <svg className="animate-bounce pl-3 h-8 w-8 fill-current text-red-400" viewBox="0 0 20 20">
                         <path d="M10,0.562c-5.195,0-9.406,4.211-9.406,9.406c0,5.195,4.211,9.406,9.406,9.406c5.195,0,9.406-4.211,9.406-9.406C19.406,4.774,15.195,0.562,10,0.562 M10,18.521c-4.723,0-8.551-3.829-8.551-8.552S5.277,1.418,10,1.418s8.552,3.828,8.552,8.551S14.723,18.521,10,18.521"></path>
@@ -39,7 +39,7 @@ const LoadingScreen = ({loggedIn}) => {
                         <path d="M9.875,0.625C4.697,0.625,0.5,4.822,0.5,10s4.197,9.375,9.375,9.375S19.25,15.178,19.25,10S15.053,0.625,9.875,0.625"></path>
                     </svg>
                 </div>
-            </span>
+            </div>
             <span>This may take a minute or two :)</span>
         </div>
     )

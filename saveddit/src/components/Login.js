@@ -17,7 +17,7 @@ const Login = () => {
 
     return (
         <div className="bg-blue-400 flex-1 text-blue-0">
-            <h1 className="text-6xl font-bold text-red-400 pl-16 pt-4">Saveddit</h1>
+            <h1 className="sm:text-6xl text-4xl font-bold text-red-400 pl-16 pt-4">Saveddit</h1>
             <div className="flex flex-1">
                 <div className="md:w-2/3 w-full">
                     <div className="bg-gradient-to-r from-blue-300 to-blue-400 mx-8 mt-8 p-8 text-lg font-semibold space-y-4">
@@ -30,7 +30,7 @@ const Login = () => {
                         <h3>Your account information nor any other Reddit data is saved on our server</h3>
                         <h3>View source code / Raise issue or request a feature - <ReactGA.OutboundLink eventLabel="Github Repo Click" to="https://github.com/ahmed-zubair-1998/Saveddit" target="_blank" className="text-blue-100 underline hover:text-blue-200">Github</ReactGA.OutboundLink></h3>
                     </div>
-                    <div className="mx-8 mb-8 px-4 py-6 w-auto bg-gradient-to-r from-red-300 to-blue-400">
+                    <div className="mx-8 mb-8 px-4 py-6 w-auto bg-gradient-to-r from-red-300 to-blue-400 md:text-left text-center">
                         {
                             url
                                 ? <ReactGA.OutboundLink className="font-bold border-4 border-red-200 bg-red-400  hover:bg-red-200 py-3 px-4" to={url} eventLabel='Login Button Click'>Login with Reddit</ReactGA.OutboundLink>
