@@ -78,7 +78,7 @@ const Window = () => {
     return (
         <div className="lg:flex lg:flex-1 lg:overflow-y-hidden">
 
-            <div className="lg:w-1/3 bg-blue-100 flex flex-col lg:overflow-y-hidden">
+            <div className="lg:w-1/3 bg-blue-100 flex flex-col overflow-y-hidden">
                 <SearchPanel />
 
                 <Subreddits subreddits={subreddits} />

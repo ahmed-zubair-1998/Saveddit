@@ -76,7 +76,7 @@ const Subreddits = ({ subreddits }) => {
                     </div>
                 </div>
 
-                <div className="h-5/6 lg:overflow-y-auto">
+                <div className="h-5/6 lg:overflow-y-auto pb-4">
                     <div className="Selected-Subreddits grid grid-cols-2 items-center">
                         {
                             selectedSubreddits.length ?
