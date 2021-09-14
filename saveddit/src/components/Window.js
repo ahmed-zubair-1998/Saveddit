@@ -1,21 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Fuse from 'fuse.js'
 
 import Pagination from './Pagination'
 import SearchPanel from './SearchPanel'
 import Subreddits from './Subreddits'
+import { resetSelectedSubreddits } from '../reducers/subredditsFilterReducer'
 
 
 const Window = () => {
-    const posts = useSelector(state => state.savedData.posts)
-    const subreddits = useSelector(state => state.savedData.subreddits)
+    const posts = useSelector(state => state.posts)
+    const subreddits = useSelector(state => state.subreddits)
     const searchQuery = useSelector(state => state.searchQuery)
     const selectedSubreddits = useSelector(state => state.selectedSubreddits)
 
-    const [filteredPosts, setFilteredPosts] = useState(posts)
+    const [filteredPosts, setFilteredPosts] = useState([...posts])
     const fuse = useRef(null)
     const listTopRef = useRef(null)
+    const dispatch = useDispatch()
 
     const moveToTop = () => {
         listTopRef.current.scrollIntoView({
@@ -23,8 +25,9 @@ const Window = () => {
         })
     }
 
-    useEffect(() => {
-        if (!filteredPosts) {
+    const indexPosts = (posts) => {
+        const postsToFilter = posts || filteredPosts
+        if (!postsToFilter) {
             return
         }
         const options = {
@@ -43,8 +46,12 @@ const Window = () => {
                 }
             ]
         }
-        const myIndex = Fuse.createIndex(options.keys, filteredPosts)
-        fuse.current = new Fuse(filteredPosts, options, myIndex)
+        const myIndex = Fuse.createIndex(options.keys, postsToFilter)
+        fuse.current = new Fuse(postsToFilter, options, myIndex)
+    }
+
+    useEffect(() => {
+        indexPosts()
     }, [])
 
     const filterPosts = () => {
@@ -61,7 +68,7 @@ const Window = () => {
             })
         }
         if (!selectedSubreddits.length) {
-            setFilteredPosts(temp)
+            setFilteredPosts([...temp])
         } else {
             setFilteredPosts(temp.filter(post => {
                 return selectedSubreddits.map(x => x[0]).includes(post.subreddit)
@@ -73,6 +80,15 @@ const Window = () => {
     useEffect(() => {
         filterPosts()
     }, [selectedSubreddits, searchQuery])
+
+    useEffect(() => {
+        setFilteredPosts([...posts])
+        indexPosts(posts)
+    }, [posts])
+
+    useEffect(() => {
+        dispatch(resetSelectedSubreddits(subreddits))
+    }, [subreddits])
 
 
     return (

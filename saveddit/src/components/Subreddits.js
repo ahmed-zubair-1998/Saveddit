@@ -36,6 +36,10 @@ const Subreddits = ({ subreddits }) => {
         }))
     }, [searchField.value])
 
+    useEffect(() => {
+        setFilteredSubreddits([...subreddits])
+    }, [selectedSubreddits])
+
     const handleSelection = (subreddit) => {
         ReactGA.event({
             category: 'Subreddit FIlter',

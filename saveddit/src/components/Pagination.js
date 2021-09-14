@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactGA from 'react-ga';
+import { useSelector } from 'react-redux';
 
 import Post from './Post'
 
@@ -153,6 +154,10 @@ const List = ({ list }) => {
 const Pagination = ({ list, moveToTop }) => {
     const [currentPage, setCurrentPage] = useState(1)
     const [currentList, setCurrentList] = useState([])
+    const previouslySelectedSubredditsRef = useRef([])
+
+    const selectedSubreddits = useSelector(state => state.selectedSubreddits)
+    const searchQuery = useSelector(state => state.searchQuery)
 
     const listSize = list.length
     const pageSize = 10
@@ -173,15 +178,32 @@ const Pagination = ({ list, moveToTop }) => {
     useEffect(() => {
         const startingIndex = pageSize * (currentPage - 1)
         const endingIndex = pageSize * currentPage
-        setCurrentList(
-            list.filter((item, idx) => {
-                if (idx >= startingIndex && idx < endingIndex) {
-                    return item
-                }
-            })
-        )
-        setCurrentPage(1)
+        const newList = list.filter((item, idx) => {
+            if (idx >= startingIndex && idx < endingIndex) {
+                return item
+            }
+        })
+        setCurrentList([...newList])
+        if(newList.length === 0 && currentPage != 1){
+            setCurrentPage(currentPage - 1)
+        }
     }, [list])
+
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [searchQuery])
+
+    const changeInSelectedSubreddits = () => {
+        return previouslySelectedSubredditsRef.current.length !== selectedSubreddits.length
+    }
+
+    useEffect(() => {
+        // In case if post is unsaved, selected Subreddits length do not change but subreddit's post count does
+        if(changeInSelectedSubreddits()){
+            setCurrentPage(1)
+            previouslySelectedSubredditsRef.current = [...selectedSubreddits]
+        }
+    }, [selectedSubreddits])
 
     const changePage = (pageNum) => {
         ReactGA.event({

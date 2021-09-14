@@ -10,7 +10,7 @@ import Logo from '../../public/logo.png'
 
 
 const Main = () => {
-    const loaded = useSelector(state => state.savedData.loaded)
+    const loaded = useSelector(state => state.loaded)
     const username = useSelector(state => state.username)
     const dispatch = useDispatch()
 

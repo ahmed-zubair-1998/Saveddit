@@ -1,4 +1,7 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+
+import { unsave } from '../reducers/savedDataReducer'
 
 
 const getDateTimeString = (unixTimestamp) => {
@@ -14,6 +17,13 @@ const getDateTimeString = (unixTimestamp) => {
 
 
 const Post = ({ post }) => {
+
+    const dispatch = useDispatch()
+
+    const unsavePost = (id, subreddit) => {
+        dispatch(unsave(id, subreddit))
+    }
+
     return (
         <div className="post bg-blue-200 text-blue-0 rounded-lg w-4/5 mx-auto px-1 py-3 my-5" key={post.url}>
             <div className="flex flex-col sm:flex-row space-y-1 items-center justify-between pb-2 mb-4 px-4 border-b-2 border-blue-500">
@@ -21,6 +31,10 @@ const Post = ({ post }) => {
                     r/{post.subreddit}
                 </a>
                 <p>{getDateTimeString(post.created)}</p>
+            </div>
+
+            <div className="py-1 font-bold rounded-md cursor-pointer text-gold-100 hover:text-white bg-gradient-to-r hover:from-transparent hover:via-gold-200 hover:to-transparent" onClick={() => unsavePost(post['id'], post['subreddit'])}>
+                Unsave
             </div>
 
             <div className="flex flex-col items-center space-y-4 hover:bg-blue-300 rounded-md w-full py-4 cursor-pointer" onClick={() => window.open(post.url, "_blank")}>

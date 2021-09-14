@@ -67,7 +67,7 @@ def generate_reddit_oauth_url():
         'login',
         APP_REDIRECT_URL,
         'temporary',
-        'identity,history'
+        'identity,history,save'
     )
 
 
@@ -115,6 +115,21 @@ def render_username():
         return res
 
     return username, 200
+
+
+@app.route('/api/unsave/<post_id>', methods=['POST'])
+def handle_unsave(post_id):
+    token = request.cookies.get('access_token')
+    if token is None:
+        return redirect('/')
+    try:
+        response = unsave_post(token, post_id)
+    except requests.exceptions.HTTPError as e:
+        res = make_response()
+        res.status_code = e.response.status_code
+        return res
+
+    return response, 200
 
 
 def get_username(access_token):
@@ -173,10 +188,22 @@ def get_saved_posts(access_token, username):
                     'comments': post['num_comments'],
                     'created': post['created'],
                     'author': post['author'],
-                    'image': get_image_url(post)
+                    'image': get_image_url(post),
+                    'id': post['name'],
                 }
             except:
                 print('Error parsing saved data...', child)
         
         if not after:
             break
+
+
+def unsave_post(access_token, post_id):
+    url = f'{REDDIT_OAUTH_ROOT_URL}/api/unsave?id={post_id}'
+    res = requests.post(
+        url,
+        headers={**APP_HTTP_REQUEST_HEADER, 'Authorization': f'Bearer {access_token}'}
+    )
+    if res.status_code != 200:
+            res.raise_for_status()
+    return res.json()

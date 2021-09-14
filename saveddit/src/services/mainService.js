@@ -26,6 +26,11 @@ export const getLoginLink = async () => {
     return response.data
 }
 
+export const unsavePost = async (id) => {
+    const response = await axios.post(`api/unsave/${id}`)
+    return response.data
+}
+
 const sort_subreddits = subreddits => {
     let subredditsList = Object.keys(subreddits).map(key => {
         return [key, subreddits[key]]
