@@ -27,7 +27,7 @@ const Login = () => {
                         <h2>View the count of posts saved per subreddit</h2>
                     </div>
                     <div className="bg-gradient-to-r from-blue-300 to-blue-400 border-t-4 border-blue-200 mx-8 p-8 text-lg font-semibold space-y-4">
-                        <h3>Your account information nor any other Reddit data is saved on our server</h3>
+                        <h3>Your Reddit account information or data is never saved on our server</h3>
                         <h3>View source code / Raise issue or request a feature - <ReactGA.OutboundLink eventLabel="Github Repo Click" to="https://github.com/ahmed-zubair-1998/Saveddit" target="_blank" className="text-blue-100 underline hover:text-blue-200">Github</ReactGA.OutboundLink></h3>
                     </div>
                     <div className="mx-8 mb-8 px-4 py-6 w-auto bg-gradient-to-r from-red-300 to-blue-400 md:text-left text-center">
