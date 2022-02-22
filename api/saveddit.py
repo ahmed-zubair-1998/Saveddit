@@ -180,16 +180,16 @@ def get_saved_posts(access_token, username):
             post = child['data']
             try:
                 yield {
-                    'score': post['score'],
+                    'title': post['title'] if child['kind'] == 't3' else post['link_title'],
                     'text': post['selftext'] if child['kind'] == 't3' else post['body'],
                     'subreddit': post['subreddit'],
-                    'title': post['title'] if child['kind'] == 't3' else post['link_title'],
-                    'url': f'https://www.reddit.com{post["permalink"]}',
+                    'score': post['score'],
                     'comments': post['num_comments'],
-                    'created': post['created'],
                     'author': post['author'],
-                    'image': get_image_url(post),
+                    'created': post['created'],
                     'id': post['name'],
+                    'image': get_image_url(post),
+                    'url': f'https://www.reddit.com{post["permalink"]}',
                 }
             except:
                 print('Error parsing saved data...', child)

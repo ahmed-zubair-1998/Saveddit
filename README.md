@@ -18,6 +18,17 @@ https://user-images.githubusercontent.com/41994834/133942578-9aad45ee-1ae6-4c72-
 4. Filter posts by subreddit
 5. Unsave any saved Reddit post
 6. All data processing done on Client side. No user data saved on our server
+7. Export saved posts data as CSV file having the following fields
+    - Author: Username of the author
+    - Comments: Comments on the post
+    - Created: UTC string of created date
+    - Id: Id for the post from reddit
+    - Image: Preview image url
+    - Score: Score on the post
+    - Subreddit: Name of the subreddit posted in
+    - Text: Post text
+    - Title: Post title
+    - URL: Hyperlink to the post
 
 ## Technologies Used
 
