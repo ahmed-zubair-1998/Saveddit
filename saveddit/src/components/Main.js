@@ -43,7 +43,7 @@ const Main = () => {
                 <div className='flex flex-row gap-4'>
                     {
                         loaded && 
-                        <CsvDownload data={posts} className='hover:bg-blue-200 px-4 py-2 rounded-md text-sm sm:text-base'>
+                        <CsvDownload data={posts} filename="saveddit4reddit.csv" className='hover:bg-blue-200 px-4 py-2 rounded-md text-sm sm:text-base'>
                             Export CSV
                         </CsvDownload>
                     }
