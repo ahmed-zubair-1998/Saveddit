@@ -3121,6 +3121,11 @@ json-schema-traverse@^0.4.1:
   resolved "https://registry.npmjs.org/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz"
   integrity sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==
 
+json-to-csv-export@^1.0.2:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/json-to-csv-export/-/json-to-csv-export-1.1.0.tgz#ab7cab4dcbd374650ebf2445eb6fcffb13e2936e"
+  integrity sha512-vI1wEQ0kghuOqUeraf2kcO1rMMH+qwS8QNaa8pClTHlFj18JiStLT7zD7H1ybE1mqroUO0zM4ly0M21PBt047w==
+
 json3@^3.3.3:
   version "3.3.3"
   resolved "https://registry.npmjs.org/json3/-/json3-3.3.3.tgz"
@@ -4041,6 +4046,13 @@ react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-json-to-csv@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-json-to-csv/-/react-json-to-csv-1.0.4.tgz#42b5fcc44642ef0f1b91f01e528d4fa8745dc3b2"
+  integrity sha512-WiLLNrJ3ruyLxPN6HS5kX5EOv5I1Wj3rB2/gS3uzz3gKHTvqUMaTEVIt2lLpvLoHHWRsRy0p629qiTsTN8hemw==
+  dependencies:
+    json-to-csv-export "^1.0.2"
 
 react-redux@^7.2.4:
   version "7.2.4"
