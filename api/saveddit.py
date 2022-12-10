@@ -16,12 +16,9 @@ REDDIT_AUTH_URL_TEMPLATE = REDDIT_ROOT_URL + \
     '/api/v1/authorize?client_id={}&response_type={}&state={}&redirect_uri={}&duration={}&scope={}'
 APP_CLIENT_ID = os.environ['SAVEDDIT_CLIENT_ID']
 APP_CLIENT_SECRET = os.environ['SAVEDDIT_CLIENT_SECRET']
-APP_REDIRECT_URL = ('http://localhost:5000/oauth-redirect'
-                    if os.environ.get('FLASK_ENV') == 'development' else
-                    'https://saveddit4reddit.herokuapp.com/oauth-redirect')
-APP_FRONTEND_URL = ('http://localhost:3000/'
-                    if os.environ.get('FLASK_ENV') == 'development' else
-                    'https://saveddit4reddit.herokuapp.com/')
+APP_FRONTEND_URL = os.environ['APP_FRONTEND_URL']
+APP_BACKEND_URL = os.environ['APP_BACKEND_URL']
+APP_REDIRECT_URL = f'{APP_BACKEND_URL}/oauth-redirect'
 APP_HTTP_REQUEST_HEADER = {'User-Agent': 'Saveddit - by Ahmed Zubair'}
 
 
