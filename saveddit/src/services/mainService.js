@@ -1,14 +1,14 @@
-import axios from 'axios'
+import api from './baseConfig'
 
 
 export const getUsername = async () =>  {
-    const response = await axios.get('api/username')
+    const response = await api.get('/api/username')
     const username = response.status === 200 ? response.data : ''
     return username
 }
 
 export const getData = async () => {
-    const response = await axios.get('api/saved')
+    const response = await api.get('/api/saved')
     let {subreddits, posts} = response.data
     return {
         subreddits: sort_subreddits(subreddits),
@@ -17,17 +17,17 @@ export const getData = async () => {
 }
 
 export const logoutUser = async () => {
-    const response = await axios.get('api/logout')
+    const response = await api.get('/api/logout')
     return response.data
 }
 
 export const getLoginLink = async () => {
-    const response = await axios.get('api/login')
+    const response = await api.get('/api/login')
     return response.data
 }
 
 export const unsavePost = async (id) => {
-    const response = await axios.post(`api/unsave/${id}`)
+    const response = await api.post(`/api/unsave/${id}`)
     return response.data
 }
 

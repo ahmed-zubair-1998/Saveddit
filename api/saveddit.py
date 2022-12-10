@@ -4,10 +4,7 @@ from collections import Counter
 import requests
 from flask import Flask, redirect, request, make_response, jsonify
 from flask_compress import Compress
-
-
-app = Flask(__name__, static_url_path='', static_folder='../saveddit/build')
-Compress(app)
+from flask_cors import CORS
 
 
 REDDIT_ROOT_URL = 'https://www.reddit.com'
@@ -22,6 +19,10 @@ APP_REDIRECT_URL = f'{APP_BACKEND_URL}/oauth-redirect'
 APP_HTTP_REQUEST_HEADER = {'User-Agent': 'Saveddit - by Ahmed Zubair'}
 
 
+app = Flask(__name__, static_url_path='', static_folder='../saveddit/build')
+CORS(app, origins=[APP_FRONTEND_URL], supports_credentials=True)
+Compress(app)
+
 
 def generate_reddit_auth_code_payload(code):
     return {
@@ -33,7 +34,7 @@ def generate_reddit_auth_code_payload(code):
 
 @app.route('/')
 def root():
-    response = redirect(APP_FRONTEND_URL) if os.environ.get('FLASK_ENV') == 'development' else app.send_static_file('index.html')
+    response = redirect(APP_FRONTEND_URL)
     response.headers['Accept-Encoding'] = 'gzip'
     return response
 

@@ -6,7 +6,7 @@
   "author": "Ahmed Zubair",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --node-env=production",
+    "build": "APP_BACKEND_URL=https://saveddit-sdzm.onrender.com webpack --node-env=production",
     "start": "webpack serve --node-env=development"
   },
   "devDependencies": {

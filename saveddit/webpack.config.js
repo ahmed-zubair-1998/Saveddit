@@ -1,5 +1,7 @@
 const path = require('path')
 const CompressionPlugin = require('compression-webpack-plugin');
+const webpack = require('webpack');
+
 
 const config = (env, argv) => {
     return {
@@ -12,11 +14,6 @@ const config = (env, argv) => {
             contentBase: path.resolve(__dirname, 'build'),
             compress: true,
             port: 3000,
-            proxy: {
-                '/api': {
-                  target: 'http://localhost:5000'
-                }
-            }
         },
         devtool: 'source-map',
         module: {
@@ -44,6 +41,9 @@ const config = (env, argv) => {
             new CompressionPlugin({
                 algorithm: 'gzip',
                 test: /\.js$|\.css$|\.html$/,
+            }),
+            new webpack.DefinePlugin({
+                APP_BACKEND_URL: JSON.stringify(process.env.APP_BACKEND_URL),
             }),
         ]
     }
