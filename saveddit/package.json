@@ -7,8 +7,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --node-env=production",
-    "start": "webpack serve --node-env=development",
-    "deploy:build": "yarn run build && git add . && git commit -m 'Production build' && git push heroku master"
+    "start": "webpack serve --node-env=development"
   },
   "devDependencies": {
     "@babel/core": "^7.14.2",
