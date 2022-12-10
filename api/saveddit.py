@@ -15,12 +15,13 @@ APP_CLIENT_ID = os.environ['SAVEDDIT_CLIENT_ID']
 APP_CLIENT_SECRET = os.environ['SAVEDDIT_CLIENT_SECRET']
 APP_FRONTEND_URL = os.environ['APP_FRONTEND_URL']
 APP_BACKEND_URL = os.environ['APP_BACKEND_URL']
+CORS_URL = os.environ['CORS_URL']
 APP_REDIRECT_URL = f'{APP_BACKEND_URL}/oauth-redirect'
 APP_HTTP_REQUEST_HEADER = {'User-Agent': 'Saveddit - by Ahmed Zubair'}
 
 
 app = Flask(__name__, static_url_path='', static_folder='../saveddit/build')
-CORS(app, origins=[APP_FRONTEND_URL], supports_credentials=True)
+CORS(app, origins=[CORS_URL], supports_credentials=True)
 Compress(app)
 
 
