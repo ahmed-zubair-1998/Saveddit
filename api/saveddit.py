@@ -50,7 +50,7 @@ def handle_redirect():
     token = auth_res.get('access_token')
     if token:
         res = make_response()
-        res.headers.add('Set-Cookie',f'cross-site-cookie=bar; SameSite=None; Secure; Max-Age={60*59}')
+        res.headers.add('Set-Cookie',f'access_token={token}; SameSite=None; Secure; Max-Age={60*59}')
         return res
     else:
         res = make_response()
