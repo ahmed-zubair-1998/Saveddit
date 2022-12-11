@@ -15,7 +15,7 @@ const App = () => {
 
     const authorize = async (code) => {
         await authorizeReddit(code)
-        //window.history.pushState({}, document.title, window.location.pathname);
+        window.history.pushState({}, document.title, window.location.pathname);
         dispatch(setUsername())
     }
     let code = useQuery().get('code')
