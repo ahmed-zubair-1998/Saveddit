@@ -74,7 +74,7 @@ def logout():
     token = request.cookies.get('access_token')
     res = make_response()
     if token:
-        res.set_cookie('access_token', '', max_age=0)
+        res.set_cookie('access_token', '', max_age=0, samesite='Lax', secure=True)
     return res
 
 
