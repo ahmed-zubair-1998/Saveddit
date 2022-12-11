@@ -1,6 +1,6 @@
 ![Saveddit](media/logo.png)
 
-[Saveddit 4 Reddit](https://saveddit4reddit.herokuapp.com) - A website that allows you to filter / search through you **Saved Reddit** posts and comments.
+[Saveddit 4 Reddit](https://ahmed-zubair-1998.github.io/Saveddit/) - A website that allows you to filter / search through you **Saved Reddit** posts and comments.
 
 ## Demo
 
