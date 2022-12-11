@@ -31,6 +31,10 @@ export const unsavePost = async (id) => {
     return response.data
 }
 
+export const authorizeReddit = async (code) => {
+    await api.get(`/api/authorize?code=${code}`)
+}
+
 const sort_subreddits = subreddits => {
     let subredditsList = Object.keys(subreddits).map(key => {
         return [key, subreddits[key]]

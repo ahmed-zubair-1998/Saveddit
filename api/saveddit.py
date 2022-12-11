@@ -16,7 +16,6 @@ APP_CLIENT_SECRET = os.environ['SAVEDDIT_CLIENT_SECRET']
 APP_FRONTEND_URL = os.environ['APP_FRONTEND_URL']
 APP_BACKEND_URL = os.environ['APP_BACKEND_URL']
 CORS_URL = os.environ['CORS_URL']
-APP_REDIRECT_URL = f'{APP_BACKEND_URL}/oauth-redirect'
 APP_HTTP_REQUEST_HEADER = {'User-Agent': 'Saveddit - by Ahmed Zubair'}
 
 
@@ -29,7 +28,7 @@ def generate_reddit_auth_code_payload(code):
     return {
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': APP_REDIRECT_URL
+        'redirect_uri': APP_FRONTEND_URL
     }
 
 
@@ -40,7 +39,7 @@ def root():
     return response
 
 
-@app.route('/oauth-redirect', methods=['GET'])
+@app.route('/api/authorize', methods=['GET'])
 def handle_redirect():
     code = request.args.get('code')
     auth_res = requests.post(REDDIT_ROOT_URL + '/api/v1/access_token',
@@ -50,11 +49,11 @@ def handle_redirect():
     ).json()
     token = auth_res.get('access_token')
     if token:
-        res = make_response(redirect('/'))
+        res = make_response()
         res.set_cookie('access_token', token, max_age=60*59)
         return res
     else:
-        res = make_response(redirect('/'))
+        res = make_response()
         return res
 
 
@@ -64,7 +63,7 @@ def generate_reddit_oauth_url():
         APP_CLIENT_ID,
         'code',
         'login',
-        APP_REDIRECT_URL,
+        APP_FRONTEND_URL,
         'temporary',
         'identity,history,save'
     )
@@ -73,7 +72,7 @@ def generate_reddit_oauth_url():
 @app.route('/api/logout')
 def logout():
     token = request.cookies.get('access_token')
-    res = make_response(redirect('/'))
+    res = make_response()
     if token:
         res.set_cookie('access_token', '', max_age=0)
     return res
@@ -83,7 +82,7 @@ def logout():
 def render_saved_data():
     token = request.cookies.get('access_token')
     if token is None:
-        return redirect('/')
+        return redirect('/api/logout')
     try:
         username = get_username(token)
         posts = list(get_saved_posts(token, username))
@@ -120,7 +119,7 @@ def render_username():
 def handle_unsave(post_id):
     token = request.cookies.get('access_token')
     if token is None:
-        return redirect('/')
+        return redirect('/api/logout')
     try:
         response = unsave_post(token, post_id)
     except requests.exceptions.HTTPError as e:
