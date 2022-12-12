@@ -10,6 +10,8 @@ import { authorizeReddit } from './services/mainService';
 
 
 const App = () => {
+    ReactGA.initialize('UA-206691949-1')
+    ReactGA.ga('set', 'checkProtocolTask', null)
     const useQuery = () => new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
 
@@ -23,13 +25,10 @@ const App = () => {
         authorize(code)
     } else {
         dispatch(setUsername())
+        ReactGA.pageview(window.location.href)
     }
 
     const username = useSelector(state => state.username)
-
-    ReactGA.initialize('UA-206691949-1')
-    ReactGA.ga('set', 'checkProtocolTask', null)
-    ReactGA.pageview(window.location.href)
 
     return (
         <div className="h-screen flex flex-col">
