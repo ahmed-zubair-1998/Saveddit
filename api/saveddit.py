@@ -32,6 +32,11 @@ def generate_reddit_auth_code_payload(code):
     }
 
 
+@app.route('/heartbeat')
+def heartbeat():
+    return 'UP'
+
+
 @app.route('/')
 def root():
     response = redirect(APP_FRONTEND_URL)
