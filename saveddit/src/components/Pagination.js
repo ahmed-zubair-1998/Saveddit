@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga4";
 import { useSelector } from 'react-redux';
 
 import Post from './Post'

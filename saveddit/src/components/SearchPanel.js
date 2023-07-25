@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga4";
 
 import useField from '../hooks/useField'
 import { setSearchQuery } from '../reducers/searchFilterReducer'

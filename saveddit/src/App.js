@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga4";
 
 import { setUsername } from './reducers/usernameReducer'
 import Login from './components/Login'
@@ -10,8 +10,7 @@ import { authorizeReddit } from './services/mainService';
 
 
 const App = () => {
-    ReactGA.initialize('UA-206691949-1')
-    ReactGA.ga('set', 'checkProtocolTask', null)
+    ReactGA.initialize('G-DZLR763R28')
     const useQuery = () => new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
 
@@ -25,7 +24,6 @@ const App = () => {
         authorize(code)
     } else {
         dispatch(setUsername())
-        ReactGA.pageview(window.location.href)
     }
 
     const username = useSelector(state => state.username)

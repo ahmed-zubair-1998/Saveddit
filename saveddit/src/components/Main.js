@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import ReactGA from 'react-ga'
-import CsvDownload from 'react-json-to-csv'
+import ReactGA from "react-ga4";
+import csvDownload from 'json-to-csv-export'
 
 import Window from './Window'
 import LoadingScreen from './LoadingScreen'
@@ -29,6 +29,14 @@ const Main = () => {
         dispatch(logout())
     }
 
+    const handleDataExport = () => {
+        ReactGA.event({
+            category: 'Export Data as CSV',
+            action: 'Export Data'
+        });
+        csvDownload({data: posts, filename: 'saveddit4reddit.csv'})
+    }
+
     const [signOutButton, setSignOutButton] = useState('hidden')
 
     const toggleSignOutButton = () => {
@@ -43,9 +51,9 @@ const Main = () => {
                 <div className='flex flex-row gap-4'>
                     {
                         loaded && 
-                        <CsvDownload data={posts} filename="saveddit4reddit.csv" className='hover:bg-blue-200 px-4 py-2 rounded-md text-sm sm:text-base'>
-                            Export CSV
-                        </CsvDownload>
+                        <button onClick={handleDataExport} className='hover:bg-blue-200 px-4 py-2 rounded-md text-sm sm:text-base'>
+                            Export Data as CSV
+                        </button>
                     }
                     <button onClick={toggleSignOutButton} className={`${signOutButton ? '' : 'bg-blue-200'} hover:bg-blue-200 px-4 py-2 rounded-md text-sm sm:text-base`}>
                         u/{username}

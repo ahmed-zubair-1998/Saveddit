@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga4";
 
 import useField from '../hooks/useField'
 import { selectSubreddit, unselectSubreddit } from '../reducers/subredditsFilterReducer'
