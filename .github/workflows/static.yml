@@ -18,21 +18,33 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x, 20.x]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        working-directory: ./saveddit
+        run: yarn
+      - name: Build
+        run: yarn build
       - name: Setup Pages
         uses: actions/configure-pages@v2
-      - name: Upload artifact
+      - name: Upload Artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
           path: './saveddit/build'
       - name: Deploy to GitHub Pages
         id: deployment
