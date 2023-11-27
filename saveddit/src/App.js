@@ -6,7 +6,7 @@ import { setUsername } from './reducers/usernameReducer'
 import Login from './components/Login'
 import Main from './components/Main'
 import LoadingScreen from './components/LoadingScreen'
-import { authorizeReddit } from './services/mainService';
+import { authorizeReddit, getUsername } from './services/mainService';
 
 
 const App = () => {
@@ -14,16 +14,22 @@ const App = () => {
     const useQuery = () => new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
 
+    const setUser = async () => {
+        const username = await getUsername()
+        dispatch(setUsername(username))
+    }
+
     const authorize = async (code) => {
         await authorizeReddit(code)
         window.history.pushState({}, document.title, window.location.pathname);
-        dispatch(setUsername())
+        await setUser()
     }
+
     let code = useQuery().get('code')
     if(code){
         authorize(code)
     } else {
-        dispatch(setUsername())
+        setUser()
     }
 
     const username = useSelector(state => state.username)

@@ -16,11 +16,6 @@ export const getData = async () => {
     }
 }
 
-export const logoutUser = async () => {
-    const response = await api.get('/api/logout')
-    return response.data
-}
-
 export const getLoginLink = async () => {
     const response = await api.get('/api/login')
     return response.data
@@ -32,7 +27,8 @@ export const unsavePost = async (id) => {
 }
 
 export const authorizeReddit = async (code) => {
-    await api.get(`/api/authorize?code=${code}`)
+    const response = await api.get(`/api/authorize?code=${code}`)
+    localStorage.setItem('token', JSON.stringify(response.data))
 }
 
 const sort_subreddits = subreddits => {

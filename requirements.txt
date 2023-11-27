@@ -10,6 +10,7 @@ idna==2.10
 itsdangerous==2.0.0
 Jinja2==3.0.0
 MarkupSafe==2.0.0
+pytz==2023.3.post1
 requests==2.25.1
 six==1.16.0
 urllib3==1.26.4
