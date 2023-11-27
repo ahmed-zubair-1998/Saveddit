@@ -1,8 +1,11 @@
 import os
+import pytz
+from datetime import datetime, timedelta
 from collections import Counter
+from functools import wraps
 
 import requests
-from flask import Flask, redirect, request, make_response, jsonify
+from flask import Flask, redirect, request, make_response, jsonify, g
 from flask_compress import Compress
 from flask_cors import CORS
 
@@ -32,6 +35,16 @@ def generate_reddit_auth_code_payload(code):
     }
 
 
+def login_required(f):
+    @wraps(f)
+    def validate_token(*args, **kwargs):
+        if request.headers.get('Authorization'):
+            g.access_token = request.headers.get('Authorization')
+            return f(*args, **kwargs)
+        return '', 202
+    return validate_token
+
+
 @app.route('/heartbeat')
 def heartbeat():
     return 'UP'
@@ -54,9 +67,10 @@ def handle_redirect():
     ).json()
     token = auth_res.get('access_token')
     if token:
-        res = make_response()
-        res.headers.add('Set-Cookie',f'access_token={token}; SameSite=None; Secure; Max-Age={60*59}')
-        return res
+        return {
+            'access_token': token,
+            'expires_on': str(datetime.now(pytz.utc) + timedelta(minutes=59))
+        }
     else:
         res = make_response()
         return res
@@ -74,23 +88,12 @@ def generate_reddit_oauth_url():
     )
 
 
-@app.route('/api/logout')
-def logout():
-    token = request.cookies.get('access_token')
-    res = make_response()
-    if token:
-        res.headers.add('Set-Cookie',f'access_token={token}; SameSite=None; Secure; Max-Age=0')
-    return res
-
-
 @app.route('/api/saved', methods=['GET'])
+@login_required
 def render_saved_data():
-    token = request.cookies.get('access_token')
-    if token is None:
-        return redirect('/api/logout')
     try:
-        username = get_username(token)
-        posts = list(get_saved_posts(token, username))
+        username = get_username()
+        posts = list(get_saved_posts(username))
     except requests.exceptions.HTTPError as e:
         res = make_response()
         res.status_code = e.response.status_code
@@ -106,12 +109,10 @@ def render_saved_data():
 
 
 @app.route('/api/username', methods=['GET'])
+@login_required
 def render_username():
-    token = request.cookies.get('access_token')
-    if token is None:
-        return 'No token. Login via Reddit', 202
     try:
-        username = get_username(token)
+        username = get_username()
     except requests.exceptions.HTTPError as e:
         res = make_response()
         res.status_code = e.response.status_code
@@ -121,12 +122,10 @@ def render_username():
 
 
 @app.route('/api/unsave/<post_id>', methods=['POST'])
+@login_required
 def handle_unsave(post_id):
-    token = request.cookies.get('access_token')
-    if token is None:
-        return redirect('/api/logout')
     try:
-        response = unsave_post(token, post_id)
+        response = unsave_post(post_id)
     except requests.exceptions.HTTPError as e:
         res = make_response()
         res.status_code = e.response.status_code
@@ -135,11 +134,11 @@ def handle_unsave(post_id):
     return response, 200
 
 
-def get_username(access_token):
+def get_username():
     url = f'{REDDIT_OAUTH_ROOT_URL}/api/v1/me'
     res = requests.get(
         url,
-        headers={**APP_HTTP_REQUEST_HEADER, 'Authorization': f'Bearer {access_token}'}
+        headers={**APP_HTTP_REQUEST_HEADER, 'Authorization': f'Bearer {g.access_token}'}
     )
     if res.status_code != 200:
             res.raise_for_status()
@@ -164,7 +163,7 @@ def get_image_url(data):
         return ''
 
 
-def get_saved_posts(access_token, username):
+def get_saved_posts(username):
     after = 0
     while True:
         url = f'{REDDIT_OAUTH_ROOT_URL}/user/{username}/saved?limit=100&raw_json=1'
@@ -172,7 +171,7 @@ def get_saved_posts(access_token, username):
             url += f'&after={after}'
         res = requests.get(
             url,
-            headers={**APP_HTTP_REQUEST_HEADER, 'Authorization': f'Bearer {access_token}'}
+            headers={**APP_HTTP_REQUEST_HEADER, 'Authorization': f'Bearer {g.access_token}'}
         )
         if res.status_code != 200:
                 res.raise_for_status()
@@ -201,11 +200,11 @@ def get_saved_posts(access_token, username):
             break
 
 
-def unsave_post(access_token, post_id):
+def unsave_post(post_id):
     url = f'{REDDIT_OAUTH_ROOT_URL}/api/unsave?id={post_id}'
     res = requests.post(
         url,
-        headers={**APP_HTTP_REQUEST_HEADER, 'Authorization': f'Bearer {access_token}'}
+        headers={**APP_HTTP_REQUEST_HEADER, 'Authorization': f'Bearer {g.access_token}'}
     )
     if res.status_code != 200:
             res.raise_for_status()

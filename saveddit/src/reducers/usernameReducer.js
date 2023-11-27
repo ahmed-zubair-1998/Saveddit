@@ -1,6 +1,3 @@
-import { getUsername, logoutUser } from '../services/mainService'
-
-
 const usernameReducer = (state=null, action) => {
     switch(action.type){
         case 'SET_USERNAME':
@@ -10,26 +7,20 @@ const usernameReducer = (state=null, action) => {
     }
 }
 
-export const setUsername = () => {
-    return async dispatch => {
-        const username = await getUsername()
-        dispatch({
-            type: 'SET_USERNAME',
-            data: username
-        
-        })
-    }   
+export const setUsername = (username) => {
+    return {
+        type: 'SET_USERNAME',
+        data: username
+    }  
 }
 
 export const logout = () => {
-    return async dispatch => {
-        const username = await logoutUser()
-        dispatch({
-            type: 'SET_USERNAME',
-            data: ''
-        
-        })
-    }  
+    localStorage.removeItem('token')
+    return {
+        type: 'SET_USERNAME',
+        data: ''
+    
+    }
 }
 
 export default usernameReducer
